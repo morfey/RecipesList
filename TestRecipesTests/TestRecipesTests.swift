@@ -32,6 +32,16 @@ class TestRecipesTests: XCTestCase {
             XCTAssertNotNil(item)
         }
     }
+    
+    func testBasicNavigationFlow() {
+        Main().startProgram()
+        XCTAssert(appDelegate.window?.rootViewController is ListRecipesViewController)
+    }
+    
+    func testCustomNavigationFlow() {
+        Main().startProgram(.details)
+        XCTAssertFalse(appDelegate.window?.rootViewController is ListRecipesViewController)
+    }
 
     func testPerformanceExample() {
         // This is an example of a performance test case.

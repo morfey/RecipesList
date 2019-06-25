@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="C1g-TT-z84">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--List Recipes View Controller-->
+        <scene sceneID="eCt-vD-ad5">
+            <objects>
+                <viewController id="C1g-TT-z84" customClass="ListRecipesViewController" customModule="TestRecipes" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="yTc-gO-NjL">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="AQ9-gN-bqr">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Fbb-Qe-Gr9">
+                                    <size key="itemSize" width="181" height="131"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="qYv-73-psb" customClass="RecipeCollectionViewCell" customModule="TestRecipes" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="181" height="131"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="181" height="131"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </view>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="C1g-TT-z84" id="yea-Zm-4Ex"/>
+                                    <outlet property="delegate" destination="C1g-TT-z84" id="ky3-Db-aJG"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="AQ9-gN-bqr" firstAttribute="leading" secondItem="jeF-hM-5jQ" secondAttribute="leading" id="0LU-DO-M3J"/>
+                            <constraint firstItem="AQ9-gN-bqr" firstAttribute="top" secondItem="jeF-hM-5jQ" secondAttribute="top" id="B6l-Of-iwx"/>
+                            <constraint firstItem="jeF-hM-5jQ" firstAttribute="bottom" secondItem="AQ9-gN-bqr" secondAttribute="bottom" id="TRl-nc-RAm"/>
+                            <constraint firstItem="jeF-hM-5jQ" firstAttribute="trailing" secondItem="AQ9-gN-bqr" secondAttribute="trailing" id="m4j-jM-wFa"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="jeF-hM-5jQ"/>
+                    </view>
+                    <connections>
+                        <outlet property="recipesCollectionView" destination="AQ9-gN-bqr" id="wu2-HT-Q8G"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="a59-45-yDE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-178.2608695652174" y="-9.375"/>
+        </scene>
+    </scenes>
+</document>
