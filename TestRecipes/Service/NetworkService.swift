@@ -58,8 +58,8 @@ struct NetworkService {
                         return
                     }
                     do {
-                        let apiResponse = try JSONDecoder().decode(RecipesApiResponse.self, from: responseData)
-                        completion(apiResponse.items, nil)
+                        let apiResponse = try JSONDecoder().decode([Recipe].self, from: responseData)
+                        completion(apiResponse, nil)
                     } catch {
                         completion(nil, NetworkResponse.decodeFailure.rawValue)
                     }

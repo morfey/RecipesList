@@ -13,8 +13,8 @@ struct Recipe: Codable {
     let ingredients: [Ingredient]
     let steps: [String]
     let timers: [Int]
-    let imageURL: URL?
-    let originalURL: URL?
+    let imageURL: String?
+    let originalURL: String?
 }
 
 struct Ingredient: Codable {
