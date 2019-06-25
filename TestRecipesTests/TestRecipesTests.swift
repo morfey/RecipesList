@@ -42,6 +42,15 @@ class TestRecipesTests: XCTestCase {
         Main().startProgram(.details)
         XCTAssertFalse(appDelegate.window?.rootViewController is ListRecipesViewController)
     }
+    
+    func testCacheResponse() {
+        store.items = []
+        if let recipes = cache.retriveRecipes(), !recipes.isEmpty {
+            XCTAssertFalse(store.items.isEmpty)
+        } else {
+            XCTAssert(store.items.isEmpty)
+        }
+    }
 
     func testPerformanceExample() {
         // This is an example of a performance test case.

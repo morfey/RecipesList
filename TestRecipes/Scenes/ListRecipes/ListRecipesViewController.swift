@@ -11,20 +11,20 @@ import UIKit
 class ListRecipesViewController: UIViewController {
     @IBOutlet weak var recipesCollectionView: UICollectionView!
     fileprivate var networkService: NetworkService?
-    fileprivate var recipes: [Recipe] = []
     
     override func loadView() {
         super.loadView()
+        networkService = NetworkService()
         recipesCollectionView.register(UINib(nibName: "RecipeCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "cell")
 
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        networkService = NetworkService()
-        networkService?.getRecipesList { [weak self] items, error in
-            self?.recipes = items ?? []
-            DispatchQueue.main.async {
+        networkService?.getRecipesList { [weak self] response, error in
+            store.items = response ?? []
+
+            mainQueue {
                 self?.recipesCollectionView.reloadData()
             }
         }
@@ -33,14 +33,17 @@ class ListRecipesViewController: UIViewController {
 
 extension ListRecipesViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return recipes.count
+        return store.items.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? RecipeCollectionViewCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? RecipeCollectionViewCell,
+            let item = store.items[safe: indexPath.item]
+        else {
             return UICollectionViewCell()
         }
-        cell.configureCell(item: recipes[indexPath.item])
+        
+        cell.configureCell(item: item)
         return cell
     }
     
