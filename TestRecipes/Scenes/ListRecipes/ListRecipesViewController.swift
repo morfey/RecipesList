@@ -60,6 +60,12 @@ extension ListRecipesViewController: UICollectionViewDelegate, UICollectionViewD
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        push(.details {
+            $0.recipe = store.items[safe: indexPath.item]
+        })
+    }
 }
 
 extension ListRecipesViewController: UICollectionViewDelegateFlowLayout {

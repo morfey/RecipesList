@@ -12,6 +12,13 @@ import XCTest
 class TestRecipesTests: XCTestCase {
     var network: NetworkService = NetworkService()
     
+    let testRecipe = Recipe(name: "Test Recipe",
+                            ingredients: [],
+                            steps: [],
+                            timers: [],
+                            imageURL: nil,
+                            originalURL: nil)
+    
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
@@ -35,12 +42,12 @@ class TestRecipesTests: XCTestCase {
     
     func testBasicNavigationFlow() {
         Main().startProgram()
-        XCTAssert(appDelegate.window?.rootViewController is ListRecipesViewController)
+        XCTAssert((appDelegate.window?.rootViewController as? UINavigationController)?.topViewController is ListRecipesViewController)
     }
     
     func testCustomNavigationFlow() {
-        Main().startProgram(.details)
-        XCTAssertFalse(appDelegate.window?.rootViewController is ListRecipesViewController)
+        Main().startProgram(.details({_ in }))
+        XCTAssertFalse((appDelegate.window?.rootViewController as? UINavigationController)?.topViewController is ListRecipesViewController)
     }
     
     func testCacheResponse() {
@@ -50,6 +57,12 @@ class TestRecipesTests: XCTestCase {
         } else {
             XCTAssert(store.items.isEmpty)
         }
+    }
+    
+    func testDetailsConfiguration() {
+        Main().startProgram(.details { $0.recipe = self.testRecipe })
+        let vc = appDelegate.window?.rootViewController as? DetailsViewController
+        XCTAssert(vc?.recipe?.name == "Test Recipe")
     }
 
     func testPerformanceExample() {

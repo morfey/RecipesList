@@ -11,14 +11,14 @@ import UIKit
 
 enum ViewControllers {
     case list
-    case details
+    case details(DetailsViewController.Configuration.ConfigurationClosure)
     
     var vc: UIViewController {
         switch self {
         case .list:
-            return UIStoryboard(name: "ListRecipes", bundle: nil).instantiateInitialViewController()!
-        default:
-            return UIViewController()
+            return UIStoryboard(name: .list).instantiateVC()
+        case .details(let config):
+            return DetailsViewController.makeFromStoryboard( DetailsViewController.Configuration(configurationClosure: config))
         }
     }
 }

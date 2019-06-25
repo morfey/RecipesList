@@ -26,7 +26,12 @@
 		EE1BC2DB22C25BF100DD8D5F /* RecipeCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE1BC2D922C25BF100DD8D5F /* RecipeCollectionViewCell.xib */; };
 		EE733C7722C26FF500C7B624 /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE733C7622C26FF500C7B624 /* Cache.swift */; };
 		EE733C7922C2A4F100C7B624 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE733C7822C2A4F100C7B624 /* DataStore.swift */; };
-		EE733C7B22C2A59900C7B624 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE733C7A22C2A59900C7B624 /* Array.swift */; };
+		EE733C7B22C2A59900C7B624 /* Array + safe.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE733C7A22C2A59900C7B624 /* Array + safe.swift */; };
+		EE733C7E22C2C0F200C7B624 /* DetailsRecipe.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE733C7D22C2C0F200C7B624 /* DetailsRecipe.storyboard */; };
+		EE733C8022C2C12E00C7B624 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE733C7F22C2C12E00C7B624 /* DetailsViewController.swift */; };
+		EE733C8222C2C17100C7B624 /* Configurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE733C8122C2C17100C7B624 /* Configurable.swift */; };
+		EE733C8422C2C43E00C7B624 /* StoryboardName.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE733C8322C2C43E00C7B624 /* StoryboardName.swift */; };
+		EE733C8622C2C9EB00C7B624 /* UIViewController + push.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE733C8522C2C9EB00C7B624 /* UIViewController + push.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,7 +72,12 @@
 		EE1BC2D922C25BF100DD8D5F /* RecipeCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecipeCollectionViewCell.xib; sourceTree = "<group>"; };
 		EE733C7622C26FF500C7B624 /* Cache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
 		EE733C7822C2A4F100C7B624 /* DataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
-		EE733C7A22C2A59900C7B624 /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
+		EE733C7A22C2A59900C7B624 /* Array + safe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array + safe.swift"; sourceTree = "<group>"; };
+		EE733C7D22C2C0F200C7B624 /* DetailsRecipe.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DetailsRecipe.storyboard; sourceTree = "<group>"; };
+		EE733C7F22C2C12E00C7B624 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
+		EE733C8122C2C17100C7B624 /* Configurable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configurable.swift; sourceTree = "<group>"; };
+		EE733C8322C2C43E00C7B624 /* StoryboardName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardName.swift; sourceTree = "<group>"; };
+		EE733C8522C2C9EB00C7B624 /* UIViewController + push.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController + push.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,6 +187,7 @@
 		EE1BC2BD22C24FC800DD8D5F /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				EE733C7C22C2C0CC00C7B624 /* DetailsRecipe */,
 				EE1BC2BE22C24FD500DD8D5F /* ListRecipes */,
 				EE1BC2CE22C2589300DD8D5F /* Main.swift */,
 				EE1BC2D222C2594800DD8D5F /* ViewControllers.swift */,
@@ -199,9 +210,21 @@
 			isa = PBXGroup;
 			children = (
 				EE1BC2D022C258F000DD8D5F /* GlobalVariables.swift */,
-				EE733C7A22C2A59900C7B624 /* Array.swift */,
+				EE733C7A22C2A59900C7B624 /* Array + safe.swift */,
+				EE733C8122C2C17100C7B624 /* Configurable.swift */,
+				EE733C8322C2C43E00C7B624 /* StoryboardName.swift */,
+				EE733C8522C2C9EB00C7B624 /* UIViewController + push.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		EE733C7C22C2C0CC00C7B624 /* DetailsRecipe */ = {
+			isa = PBXGroup;
+			children = (
+				EE733C7D22C2C0F200C7B624 /* DetailsRecipe.storyboard */,
+				EE733C7F22C2C12E00C7B624 /* DetailsViewController.swift */,
+			);
+			path = DetailsRecipe;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -288,6 +311,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE733C7E22C2C0F200C7B624 /* DetailsRecipe.storyboard in Resources */,
 				EE1BC2DB22C25BF100DD8D5F /* RecipeCollectionViewCell.xib in Resources */,
 				EE1BC29E22C23CF700DD8D5F /* LaunchScreen.storyboard in Resources */,
 				EE1BC29B22C23CF700DD8D5F /* Assets.xcassets in Resources */,
@@ -373,6 +397,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE733C8222C2C17100C7B624 /* Configurable.swift in Sources */,
 				EE1BC2B522C23DF400DD8D5F /* Recipe.swift in Sources */,
 				EE733C7922C2A4F100C7B624 /* DataStore.swift in Sources */,
 				EE1BC29622C23CF500DD8D5F /* ListRecipesViewController.swift in Sources */,
@@ -380,10 +405,13 @@
 				EE1BC2CF22C2589300DD8D5F /* Main.swift in Sources */,
 				EE733C7722C26FF500C7B624 /* Cache.swift in Sources */,
 				EE1BC2DA22C25BF100DD8D5F /* RecipeCollectionViewCell.swift in Sources */,
+				EE733C8622C2C9EB00C7B624 /* UIViewController + push.swift in Sources */,
 				EE1BC2D122C258F000DD8D5F /* GlobalVariables.swift in Sources */,
+				EE733C8422C2C43E00C7B624 /* StoryboardName.swift in Sources */,
 				EE1BC2BC22C241B000DD8D5F /* RecipesApi.swift in Sources */,
-				EE733C7B22C2A59900C7B624 /* Array.swift in Sources */,
+				EE733C7B22C2A59900C7B624 /* Array + safe.swift in Sources */,
 				EE1BC2BA22C23FB600DD8D5F /* Router.swift in Sources */,
+				EE733C8022C2C12E00C7B624 /* DetailsViewController.swift in Sources */,
 				EE1BC2B822C23F7D00DD8D5F /* NetworkService.swift in Sources */,
 				EE1BC29422C23CF500DD8D5F /* AppDelegate.swift in Sources */,
 			);
