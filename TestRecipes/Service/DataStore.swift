@@ -9,13 +9,30 @@
 import Foundation
 
 class DataStore {
+    private var isSearching = false
+    private var original = [Recipe]()
     static let shared = DataStore()
     
     var items = [Recipe]() {
         didSet {
-            items.isEmpty ? items = cache.retriveRecipes() ?? [] : cache.storeRecipes()
+            (items.isEmpty && !isSearching) ? items = cache.retriveRecipes() ?? [] : cache.storeRecipes()
+            if !isSearching { original = items }
         }
     }
     
     init() {}
+    
+    func filter(with text: String?) {
+        isSearching = true
+        if let request = text?.lowercased() {
+            items = original.filter {
+                $0.name.contains(request) ||
+                    !$0.ingredients.map { $0.name }.filter { $0.contains(request) }.isEmpty ||
+                    !$0.steps.filter { $0.contains(request) }.isEmpty
+            }
+        } else {
+            items = original
+        }
+        isSearching = false
+    }
 }

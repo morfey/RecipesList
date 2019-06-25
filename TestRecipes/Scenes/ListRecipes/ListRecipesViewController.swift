@@ -11,12 +11,13 @@ import UIKit
 class ListRecipesViewController: UIViewController {
     @IBOutlet weak var recipesCollectionView: UICollectionView!
     fileprivate var networkService: NetworkService?
+    fileprivate var searchController: UISearchController?
     
     override func loadView() {
         super.loadView()
         networkService = NetworkService()
         recipesCollectionView.register(UINib(nibName: "RecipeCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "cell")
-
+        buildSearchBar()
     }
     
     override func viewDidLoad() {
@@ -28,6 +29,15 @@ class ListRecipesViewController: UIViewController {
                 self?.recipesCollectionView.reloadData()
             }
         }
+    }
+    
+    fileprivate func buildSearchBar() {
+        searchController = UISearchController(searchResultsController: nil)
+        searchController?.delegate = self
+        searchController?.searchResultsUpdater = self
+        searchController?.dimsBackgroundDuringPresentation = false
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
     }
 }
 
@@ -55,6 +65,22 @@ extension ListRecipesViewController: UICollectionViewDelegate, UICollectionViewD
 extension ListRecipesViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 200, height: 300)
+    }
+}
+
+extension ListRecipesViewController: UISearchControllerDelegate, UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        if let text = searchController.searchBar.text, !text.isEmpty {
+            store.filter(with: text)
+        } else {
+            store.filter(with: nil)
+        }
+        recipesCollectionView.reloadData()
+    }
+    
+    func didDismissSearchController(_ searchController: UISearchController) {
+        store.filter(with: nil)
+        recipesCollectionView.reloadData()
     }
 }
 
