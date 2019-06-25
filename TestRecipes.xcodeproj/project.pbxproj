@@ -13,6 +13,10 @@
 		EE1BC29B22C23CF700DD8D5F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE1BC29A22C23CF700DD8D5F /* Assets.xcassets */; };
 		EE1BC29E22C23CF700DD8D5F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE1BC29C22C23CF700DD8D5F /* LaunchScreen.storyboard */; };
 		EE1BC2A922C23CF800DD8D5F /* TestRecipesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1BC2A822C23CF800DD8D5F /* TestRecipesTests.swift */; };
+		EE1BC2B522C23DF400DD8D5F /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1BC2B422C23DF400DD8D5F /* Recipe.swift */; };
+		EE1BC2B822C23F7D00DD8D5F /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1BC2B722C23F7D00DD8D5F /* NetworkService.swift */; };
+		EE1BC2BA22C23FB600DD8D5F /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1BC2B922C23FB600DD8D5F /* Router.swift */; };
+		EE1BC2BC22C241B000DD8D5F /* RecipesApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1BC2BB22C241B000DD8D5F /* RecipesApi.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +40,10 @@
 		EE1BC2A422C23CF800DD8D5F /* TestRecipesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TestRecipesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE1BC2A822C23CF800DD8D5F /* TestRecipesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestRecipesTests.swift; sourceTree = "<group>"; };
 		EE1BC2AA22C23CF800DD8D5F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EE1BC2B422C23DF400DD8D5F /* Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
+		EE1BC2B722C23F7D00DD8D5F /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		EE1BC2B922C23FB600DD8D5F /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		EE1BC2BB22C241B000DD8D5F /* RecipesApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesApi.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +85,8 @@
 		EE1BC29222C23CF500DD8D5F /* TestRecipes */ = {
 			isa = PBXGroup;
 			children = (
+				EE1BC2B622C23F6E00DD8D5F /* Service */,
+				EE1BC2B322C23DCD00DD8D5F /* Model */,
 				EE1BC29322C23CF500DD8D5F /* AppDelegate.swift */,
 				EE1BC29522C23CF500DD8D5F /* ViewController.swift */,
 				EE1BC29722C23CF500DD8D5F /* Main.storyboard */,
@@ -94,6 +104,24 @@
 				EE1BC2AA22C23CF800DD8D5F /* Info.plist */,
 			);
 			path = TestRecipesTests;
+			sourceTree = "<group>";
+		};
+		EE1BC2B322C23DCD00DD8D5F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				EE1BC2B422C23DF400DD8D5F /* Recipe.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		EE1BC2B622C23F6E00DD8D5F /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				EE1BC2B722C23F7D00DD8D5F /* NetworkService.swift */,
+				EE1BC2B922C23FB600DD8D5F /* Router.swift */,
+				EE1BC2BB22C241B000DD8D5F /* RecipesApi.swift */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -197,7 +225,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE1BC2B522C23DF400DD8D5F /* Recipe.swift in Sources */,
 				EE1BC29622C23CF500DD8D5F /* ViewController.swift in Sources */,
+				EE1BC2BC22C241B000DD8D5F /* RecipesApi.swift in Sources */,
+				EE1BC2BA22C23FB600DD8D5F /* Router.swift in Sources */,
+				EE1BC2B822C23F7D00DD8D5F /* NetworkService.swift in Sources */,
 				EE1BC29422C23CF500DD8D5F /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

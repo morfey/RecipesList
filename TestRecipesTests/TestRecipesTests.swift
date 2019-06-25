@@ -10,7 +10,8 @@ import XCTest
 @testable import TestRecipes
 
 class TestRecipesTests: XCTestCase {
-
+    var network: NetworkService = NetworkService()
+    
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
@@ -18,10 +19,18 @@ class TestRecipesTests: XCTestCase {
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
-
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    
+    func testListRecipesApiEnpointRequest() {
+        network.getRecipesList { items, error in
+            XCTAssertNotNil(items)
+        }
+    }
+    
+    func testListRecipesApiEncode() {
+        network.getRecipesList { items, error in
+            let item = items?.first
+            XCTAssertNotNil(item)
+        }
     }
 
     func testPerformanceExample() {
@@ -30,5 +39,4 @@ class TestRecipesTests: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }
-
 }
