@@ -20,27 +20,27 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PUm-tG-NQJ">
-                        <rect key="frame" x="8" y="219" width="238" height="21"/>
+                        <rect key="frame" x="8" y="235" width="238" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="joq-JT-GyW">
-                        <rect key="frame" x="8" y="248" width="238" height="21"/>
+                        <rect key="frame" x="8" y="260" width="238" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ddE-xw-PzX">
-                        <rect key="frame" x="8" y="277" width="238" height="21"/>
+                        <rect key="frame" x="8" y="285" width="238" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NGU-DF-dif">
-                        <rect key="frame" x="0.0" y="0.0" width="254" height="200"/>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="NGU-DF-dif">
+                        <rect key="frame" x="0.0" y="0.0" width="254" height="211.5"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="200" id="Fl0-vm-0wD"/>
+                            <constraint firstAttribute="width" secondItem="NGU-DF-dif" secondAttribute="height" multiplier="1.2:1" id="qsK-mU-sgE"/>
                         </constraints>
                     </imageView>
                 </subviews>
@@ -48,7 +48,7 @@
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="PUm-tG-NQJ" secondAttribute="trailing" constant="8" id="0UO-c9-w0v"/>
                 <constraint firstAttribute="trailing" secondItem="ddE-xw-PzX" secondAttribute="trailing" constant="8" id="BAp-Cc-YtP"/>
-                <constraint firstItem="joq-JT-GyW" firstAttribute="top" secondItem="PUm-tG-NQJ" secondAttribute="bottom" constant="8" id="IQG-7D-onn"/>
+                <constraint firstItem="joq-JT-GyW" firstAttribute="top" secondItem="PUm-tG-NQJ" secondAttribute="bottom" constant="4" id="IQG-7D-onn"/>
                 <constraint firstItem="ddE-xw-PzX" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="Rie-uU-PfS"/>
                 <constraint firstItem="NGU-DF-dif" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="Vh8-rK-fw7"/>
                 <constraint firstAttribute="trailing" secondItem="joq-JT-GyW" secondAttribute="trailing" constant="8" id="WD7-Kb-TBd"/>
@@ -56,8 +56,8 @@
                 <constraint firstItem="NGU-DF-dif" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="dMJ-UV-c5d"/>
                 <constraint firstItem="joq-JT-GyW" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="qgE-Pp-xoz"/>
                 <constraint firstItem="PUm-tG-NQJ" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="s7r-4i-c3l"/>
-                <constraint firstItem="ddE-xw-PzX" firstAttribute="top" secondItem="joq-JT-GyW" secondAttribute="bottom" constant="8" id="tvn-iH-w2Y"/>
-                <constraint firstAttribute="bottom" secondItem="ddE-xw-PzX" secondAttribute="bottom" constant="16" id="uGt-1a-KdT"/>
+                <constraint firstItem="ddE-xw-PzX" firstAttribute="top" secondItem="joq-JT-GyW" secondAttribute="bottom" constant="4" id="tvn-iH-w2Y"/>
+                <constraint firstAttribute="bottom" secondItem="ddE-xw-PzX" secondAttribute="bottom" constant="8" id="uGt-1a-KdT"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="254" height="314"/>
@@ -70,4 +70,7 @@
             <point key="canvasLocation" x="285.50724637681162" y="176.78571428571428"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="placeholder" width="300" height="300"/>
+    </resources>
 </document>

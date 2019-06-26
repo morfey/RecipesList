@@ -44,7 +44,7 @@ final class DetailsViewController: UIViewController, Configurable {
     override func viewDidLoad() {
         super.viewDidLoad()
         reloadSections()
-        imageView.kf.setImage(with: URL(string: recipe?.imageURL ?? ""))
+        imageView.kf.setImage(with: URL(string: recipe?.imageURL ?? ""), placeholder: #imageLiteral(resourceName: "placeholder"))
     }
     
     fileprivate func reloadSections() {
