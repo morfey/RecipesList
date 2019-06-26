@@ -18,7 +18,8 @@ typealias TableViewCellFactory = () -> TableViewCellProtocol
 
 enum CellType {
     case
-    baseCell(BaseTableCellViewModel)
+    baseCell(BaseTableCellViewModel),
+    detailsCell(BaseTableCellViewModel)
 }
 
 enum TableViewCellHelper {
@@ -26,6 +27,8 @@ enum TableViewCellHelper {
         switch type {
         case .baseCell(let vm)?:
             return (BasicTableCell.make, vm)
+        case .detailsCell(let vm)?:
+            return (BasicTableCell.makeValue1, vm)
         case .none:
             return (BasicTableCell.make, nil)
         }

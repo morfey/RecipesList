@@ -25,6 +25,10 @@ class BasicTableCell: UITableViewCell, TableViewCellProtocol {
     }
     
     static func make() -> TableViewCellProtocol {
+        return BasicTableCell(style: .default, reuseIdentifier: String(describing: self))
+    }
+    
+    static func makeValue1() -> TableViewCellProtocol {
         return BasicTableCell(style: .value1, reuseIdentifier: String(describing: self))
     }
     
@@ -43,5 +47,6 @@ class BasicTableCell: UITableViewCell, TableViewCellProtocol {
         detailTextLabel?.text    = viewModel.detailText
         textLabel?.text          = viewModel.text
         textLabel?.numberOfLines = viewModel.numberOfLines
+        textLabel?.textAlignment = viewModel.textAligment
     }
 }

@@ -14,6 +14,7 @@ final class DetailsConfiguration: ConfigurationClass {
 
 extension DetailsViewController {
     enum SectionType {
+        case title([CellType])
         case ingridients(String, [CellType])
         case instructions([CellType])
     }
@@ -21,7 +22,11 @@ extension DetailsViewController {
 
 final class DetailsViewController: UIViewController, Configurable {
     @IBOutlet weak var tableView: UITableView!
+    fileprivate var imageView: UIImageView!
     fileprivate var sections: [SectionType] = []
+    fileprivate lazy var headerHeight: CGFloat = {
+        return view.frame.width * 0.5
+    }()
     
     var recipe: Recipe?
     
@@ -31,13 +36,23 @@ final class DetailsViewController: UIViewController, Configurable {
         return vc
     }
     
+    override func loadView() {
+        super.loadView()
+        makeImageView()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         reloadSections()
+        imageView.kf.setImage(with: URL(string: recipe?.imageURL ?? ""))
     }
     
     fileprivate func reloadSections() {
         var sections: [SectionType] = []
+        
+        if let titleSection = makeTitleSection() {
+            sections.append(titleSection)
+        }
         
         if let ingridientsSection = makeIngridientsSection() {
             sections.append(ingridientsSection)
@@ -51,12 +66,19 @@ final class DetailsViewController: UIViewController, Configurable {
         self.tableView.reloadData()
     }
     
+    fileprivate func makeTitleSection()  -> SectionType? {
+        if let name = recipe?.name {
+            return .title([.baseCell(BaseTableCellViewModel(text: name, textAligment: .center))])
+        }
+        return nil
+    }
+    
     fileprivate func makeIngridientsSection() -> SectionType? {
         if let ingridientsCount = recipe?.ingredients.count, ingridientsCount != 0 {
             var cells = [CellType]()
             recipe?.ingredients.forEach {
                 let vm = BaseTableCellViewModel(text: $0.name, detailText: $0.quantity, numberOfLines: 0)
-                cells.append(.baseCell(vm))
+                cells.append(.detailsCell(vm))
             }
             return .ingridients("Ingridients \(ingridientsCount)", cells)
         }
@@ -74,12 +96,24 @@ final class DetailsViewController: UIViewController, Configurable {
         }
         return nil
     }
+    
+    
+    fileprivate func makeImageView() {
+        imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        let originY: CGFloat = navigationController?.navigationBar.frame.maxY ?? 0
+        imageView.frame = CGRect(x: 0, y: originY, width: UIScreen.main.bounds.size.width, height: headerHeight)
+        view.addSubview(imageView)
+        tableView.contentInset = UIEdgeInsets(top: headerHeight, left: 0, bottom: 0, right: 0)
+    }
 }
 
 extension DetailsViewController: UITableViewDelegate, UITableViewDataSource {
     private func rows(inSection section: Int) -> [CellType] {
         switch sections[section] {
         case .ingridients(_, let rows),
+             .title(let rows),
              .instructions(let rows):
             return rows
         }
@@ -110,6 +144,17 @@ extension DetailsViewController: UITableViewDelegate, UITableViewDataSource {
             return str
         case .instructions(_):
             return "Instructions"
+        default: return nil
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        switch sections[section] {
+        case .ingridients,
+             .instructions:
+            return tableView.sectionHeaderHeight
+        case .title:
+            return CGFloat.leastNonzeroMagnitude
         }
     }
     
@@ -119,6 +164,13 @@ extension DetailsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return rows(inSection: section).count
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let y = headerHeight - (scrollView.contentOffset.y + headerHeight)
+        let height = min(max(y, 0), UIScreen.main.bounds.size.height)
+        let originY: CGFloat = navigationController?.navigationBar.frame.maxY ?? 0
+        imageView.frame = CGRect(x: 0, y: originY, width: UIScreen.main.bounds.size.width, height: height)
     }
 }
 
