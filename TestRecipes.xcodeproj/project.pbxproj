@@ -32,6 +32,9 @@
 		EE733C8222C2C17100C7B624 /* Configurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE733C8122C2C17100C7B624 /* Configurable.swift */; };
 		EE733C8422C2C43E00C7B624 /* StoryboardName.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE733C8322C2C43E00C7B624 /* StoryboardName.swift */; };
 		EE733C8622C2C9EB00C7B624 /* UIViewController + push.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE733C8522C2C9EB00C7B624 /* UIViewController + push.swift */; };
+		EE733C8822C37E4000C7B624 /* TableViewCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE733C8722C37E4000C7B624 /* TableViewCellProtocol.swift */; };
+		EE733C8B22C37EC200C7B624 /* BaseTableCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE733C8A22C37EC200C7B624 /* BaseTableCellViewModel.swift */; };
+		EE733C8D22C37FA800C7B624 /* BasicTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE733C8C22C37FA800C7B624 /* BasicTableCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +81,9 @@
 		EE733C8122C2C17100C7B624 /* Configurable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configurable.swift; sourceTree = "<group>"; };
 		EE733C8322C2C43E00C7B624 /* StoryboardName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardName.swift; sourceTree = "<group>"; };
 		EE733C8522C2C9EB00C7B624 /* UIViewController + push.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController + push.swift"; sourceTree = "<group>"; };
+		EE733C8722C37E4000C7B624 /* TableViewCellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellProtocol.swift; sourceTree = "<group>"; };
+		EE733C8A22C37EC200C7B624 /* BaseTableCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableCellViewModel.swift; sourceTree = "<group>"; };
+		EE733C8C22C37FA800C7B624 /* BasicTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicTableCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,6 +186,7 @@
 				EE1BC2BB22C241B000DD8D5F /* RecipesApi.swift */,
 				EE733C7622C26FF500C7B624 /* Cache.swift */,
 				EE733C7822C2A4F100C7B624 /* DataStore.swift */,
+				EE733C8722C37E4000C7B624 /* TableViewCellProtocol.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -221,6 +228,8 @@
 		EE733C7C22C2C0CC00C7B624 /* DetailsRecipe */ = {
 			isa = PBXGroup;
 			children = (
+				EE733C8A22C37EC200C7B624 /* BaseTableCellViewModel.swift */,
+				EE733C8C22C37FA800C7B624 /* BasicTableCell.swift */,
 				EE733C7D22C2C0F200C7B624 /* DetailsRecipe.storyboard */,
 				EE733C7F22C2C12E00C7B624 /* DetailsViewController.swift */,
 			);
@@ -402,15 +411,18 @@
 				EE733C7922C2A4F100C7B624 /* DataStore.swift in Sources */,
 				EE1BC29622C23CF500DD8D5F /* ListRecipesViewController.swift in Sources */,
 				EE1BC2D322C2594800DD8D5F /* ViewControllers.swift in Sources */,
+				EE733C8B22C37EC200C7B624 /* BaseTableCellViewModel.swift in Sources */,
 				EE1BC2CF22C2589300DD8D5F /* Main.swift in Sources */,
 				EE733C7722C26FF500C7B624 /* Cache.swift in Sources */,
 				EE1BC2DA22C25BF100DD8D5F /* RecipeCollectionViewCell.swift in Sources */,
 				EE733C8622C2C9EB00C7B624 /* UIViewController + push.swift in Sources */,
+				EE733C8822C37E4000C7B624 /* TableViewCellProtocol.swift in Sources */,
 				EE1BC2D122C258F000DD8D5F /* GlobalVariables.swift in Sources */,
 				EE733C8422C2C43E00C7B624 /* StoryboardName.swift in Sources */,
 				EE1BC2BC22C241B000DD8D5F /* RecipesApi.swift in Sources */,
 				EE733C7B22C2A59900C7B624 /* Array + safe.swift in Sources */,
 				EE1BC2BA22C23FB600DD8D5F /* Router.swift in Sources */,
+				EE733C8D22C37FA800C7B624 /* BasicTableCell.swift in Sources */,
 				EE733C8022C2C12E00C7B624 /* DetailsViewController.swift in Sources */,
 				EE1BC2B822C23F7D00DD8D5F /* NetworkService.swift in Sources */,
 				EE1BC29422C23CF500DD8D5F /* AppDelegate.swift in Sources */,

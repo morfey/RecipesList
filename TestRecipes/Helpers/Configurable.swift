@@ -10,17 +10,17 @@ import Foundation
 import UIKit
 
 protocol Configurable: class {
-    associatedtype Configuration: ConfigurationController
+    associatedtype Configuration: ConfigurationClass
     static func makeFromStoryboard(_ configuration: Configuration) -> Self
 }
 
-protocol ConfigurationController {
+protocol ConfigurationClass {
     typealias ConfigurationClosure = (Self) -> ()
     init()
     init(configurationClosure: ConfigurationClosure)
 }
 
-extension ConfigurationController {
+extension ConfigurationClass {
     init(configurationClosure: ConfigurationClosure) {
         self.init()
         configurationClosure(self)
