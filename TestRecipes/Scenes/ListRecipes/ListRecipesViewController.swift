@@ -17,6 +17,7 @@ class ListRecipesViewController: UIViewController {
         super.loadView()
         networkService = NetworkService()
         recipesCollectionView.register(UINib(nibName: "RecipeCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "cell")
+        recipesCollectionView.register(UINib(nibName: "FilterReusableView", bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "header")
         buildSearchBar()
     }
     
@@ -66,11 +67,37 @@ extension ListRecipesViewController: UICollectionViewDelegate, UICollectionViewD
             $0.recipe = store.items[safe: indexPath.item]
         })
     }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let supplementaryView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "header", for: indexPath)
+        (supplementaryView as? FilterReusableView)?.delegate = self
+        return supplementaryView
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: collectionView.frame.width, height: 45)
+    }
 }
 
 extension ListRecipesViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 180, height: 250)
+    }
+}
+
+extension ListRecipesViewController: FilterViewDelegate {
+    func showComplexityFilter() {
+        let complixity = Complexity.allCases
+        present(ViewControllers.simpleSelect {
+            $0.cells = complixity.map { $0.rawValue }
+        }.nav, animated: true, completion: nil)
+    }
+    
+    func showCookingTimeFilter() {
+        let cookingTime = CookingTime.allCases
+        present(ViewControllers.simpleSelect {
+            $0.cells = cookingTime.map { $0.title }
+        }.nav, animated: true, completion: nil)
     }
 }
 

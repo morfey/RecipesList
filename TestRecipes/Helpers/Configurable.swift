@@ -17,11 +17,11 @@ protocol Configurable: class {
 protocol ConfigurationClass {
     typealias ConfigurationClosure = (Self) -> ()
     init()
-    init(configurationClosure: ConfigurationClosure)
+    init(_ configurationClosure: ConfigurationClosure)
 }
 
 extension ConfigurationClass {
-    init(configurationClosure: ConfigurationClosure) {
+    init(_ configurationClosure: ConfigurationClosure) {
         self.init()
         configurationClosure(self)
     }
