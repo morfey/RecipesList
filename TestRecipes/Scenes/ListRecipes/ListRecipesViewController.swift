@@ -42,6 +42,7 @@ class ListRecipesViewController: UIViewController {
     }
 }
 
+// MARK: - UICollectionViewDelegate & UICollectionViewDataSource
 extension ListRecipesViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return store.items.count
@@ -79,28 +80,47 @@ extension ListRecipesViewController: UICollectionViewDelegate, UICollectionViewD
     }
 }
 
+// MARK: - UICollectionViewDelegateFlowLayout
 extension ListRecipesViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 180, height: 250)
     }
 }
 
+// MARK: - FilterViewDelegate
 extension ListRecipesViewController: FilterViewDelegate {
     func showComplexityFilter() {
-        let complixity = Complexity.allCases
+        let complexity = Complexity.allCases
+        let complexityClosure: ((Int) -> ())? = { index in
+            store.complexityFilter = complexity[index]
+            store.filter(with: nil)
+            self.recipesCollectionView.reloadData()
+        }
+        
         present(ViewControllers.simpleSelect {
-            $0.cells = complixity.map { $0.rawValue }
+            $0.cells = complexity.map { $0.rawValue.capitalized }
+            $0.closureDidSelectCell = complexityClosure
+            $0.selectedCell = complexity.firstIndex(of: store.complexityFilter)
         }.nav, animated: true, completion: nil)
     }
     
     func showCookingTimeFilter() {
         let cookingTime = CookingTime.allCases
+        let cookingClosure: ((Int) -> ())? = { index in
+            store.cookingTime = cookingTime[index]
+            store.filter(with: nil)
+            self.recipesCollectionView.reloadData()
+        }
+        
         present(ViewControllers.simpleSelect {
             $0.cells = cookingTime.map { $0.title }
+            $0.closureDidSelectCell = cookingClosure
+            $0.selectedCell = cookingTime.firstIndex(of: store.cookingTime)
         }.nav, animated: true, completion: nil)
     }
 }
 
+// MARK: - UISearchControllerDelegate & UISearchResultsUpdating
 extension ListRecipesViewController: UISearchControllerDelegate, UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         if let text = searchController.searchBar.text, !text.isEmpty {

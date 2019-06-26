@@ -39,6 +39,8 @@
 		EE733C9322C3BDDE00C7B624 /* FilterReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE733C9122C3BDDE00C7B624 /* FilterReusableView.xib */; };
 		EE733C9922C3C84600C7B624 /* SimpleSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE733C9722C3C84600C7B624 /* SimpleSelectViewController.swift */; };
 		EE733C9A22C3C84600C7B624 /* SimpleSelectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE733C9822C3C84600C7B624 /* SimpleSelectViewController.xib */; };
+		EE733C9C22C3E89B00C7B624 /* DetailsConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE733C9B22C3E89B00C7B624 /* DetailsConfiguration.swift */; };
+		EE733C9E22C3E8BE00C7B624 /* DetailsViewController + SectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE733C9D22C3E8BE00C7B624 /* DetailsViewController + SectionType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,6 +94,8 @@
 		EE733C9122C3BDDE00C7B624 /* FilterReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterReusableView.xib; sourceTree = "<group>"; };
 		EE733C9722C3C84600C7B624 /* SimpleSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleSelectViewController.swift; sourceTree = "<group>"; };
 		EE733C9822C3C84600C7B624 /* SimpleSelectViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SimpleSelectViewController.xib; sourceTree = "<group>"; };
+		EE733C9B22C3E89B00C7B624 /* DetailsConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsConfiguration.swift; sourceTree = "<group>"; };
+		EE733C9D22C3E8BE00C7B624 /* DetailsViewController + SectionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DetailsViewController + SectionType.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -243,6 +247,8 @@
 				EE733C8C22C37FA800C7B624 /* BasicTableCell.swift */,
 				EE733C7D22C2C0F200C7B624 /* DetailsRecipe.storyboard */,
 				EE733C7F22C2C12E00C7B624 /* DetailsViewController.swift */,
+				EE733C9B22C3E89B00C7B624 /* DetailsConfiguration.swift */,
+				EE733C9D22C3E8BE00C7B624 /* DetailsViewController + SectionType.swift */,
 			);
 			path = DetailsRecipe;
 			sourceTree = "<group>";
@@ -439,8 +445,10 @@
 				EE1BC2DA22C25BF100DD8D5F /* RecipeCollectionViewCell.swift in Sources */,
 				EE733C8622C2C9EB00C7B624 /* UIViewController + push.swift in Sources */,
 				EE733C8822C37E4000C7B624 /* TableViewCellProtocol.swift in Sources */,
+				EE733C9E22C3E8BE00C7B624 /* DetailsViewController + SectionType.swift in Sources */,
 				EE1BC2D122C258F000DD8D5F /* GlobalVariables.swift in Sources */,
 				EE733C8422C2C43E00C7B624 /* StoryboardName.swift in Sources */,
+				EE733C9C22C3E89B00C7B624 /* DetailsConfiguration.swift in Sources */,
 				EE1BC2BC22C241B000DD8D5F /* RecipesApi.swift in Sources */,
 				EE733C9222C3BDDE00C7B624 /* FilterReusableView.swift in Sources */,
 				EE733C7B22C2A59900C7B624 /* Array + safe.swift in Sources */,

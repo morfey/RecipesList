@@ -13,6 +13,9 @@ class DataStore {
     private var original = [Recipe]()
     static let shared = DataStore()
     
+    var complexityFilter: Complexity = .any
+    var cookingTime: CookingTime = .any
+    
     var items = [Recipe]() {
         didSet {
             (items.isEmpty && !isSearching) ? items = cache.retriveRecipes() ?? [] : cache.storeRecipes()
@@ -32,6 +35,10 @@ class DataStore {
             }
         } else {
             items = original
+        }
+        items = items.filter {
+            (complexityFilter != .any ? $0.complexity == complexityFilter : true) &&
+            (cookingTime != .any ? $0.cookingTime == cookingTime : true)
         }
         isSearching = false
     }

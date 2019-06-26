@@ -8,18 +8,6 @@
 
 import UIKit
 
-final class DetailsConfiguration: ConfigurationClass {
-    var recipe: Recipe?
-}
-
-extension DetailsViewController {
-    enum SectionType {
-        case title([CellType])
-        case ingridients(String, [CellType])
-        case instructions([CellType])
-    }
-}
-
 final class DetailsViewController: UIViewController, Configurable {
     @IBOutlet weak var tableView: UITableView!
     fileprivate var imageView: UIImageView!
@@ -68,7 +56,10 @@ final class DetailsViewController: UIViewController, Configurable {
     
     fileprivate func makeTitleSection()  -> SectionType? {
         if let name = recipe?.name {
-            return .title([.baseCell(BaseTableCellViewModel(text: name, textAligment: .center))])
+            let vm = BaseTableCellViewModel(text: name,
+                                            numberOfLines: 0,
+                                            textAligment: .center)
+            return .title([.baseCell(vm)])
         }
         return nil
     }
@@ -77,7 +68,9 @@ final class DetailsViewController: UIViewController, Configurable {
         if let ingridientsCount = recipe?.ingredients.count, ingridientsCount != 0 {
             var cells = [CellType]()
             recipe?.ingredients.forEach {
-                let vm = BaseTableCellViewModel(text: $0.name, detailText: $0.quantity, numberOfLines: 0)
+                let vm = BaseTableCellViewModel(text: $0.name,
+                                                detailText: $0.quantity,
+                                                numberOfLines: 0)
                 cells.append(.detailsCell(vm))
             }
             return .ingridients("Ingridients \(ingridientsCount)", cells)
@@ -109,6 +102,7 @@ final class DetailsViewController: UIViewController, Configurable {
     }
 }
 
+// MARK: - UITableViewDelegate & UITableViewDataSource
 extension DetailsViewController: UITableViewDelegate, UITableViewDataSource {
     private func rows(inSection section: Int) -> [CellType] {
         switch sections[section] {

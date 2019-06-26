@@ -10,23 +10,26 @@ import UIKit
 
 final class SimpleSelectConfiguration: ConfigurationClass {
     var cells: [String]?
+    var selectedCell: Int?
+    var closureDidSelectCell: ((Int) -> Void)?
 }
 
 final class SimpleSelectViewController: UIViewController, Configurable {
     @IBOutlet weak var tableView: UITableView!
-    var selectedCell: Int?
-    var cells: [String] = [] {
+    fileprivate var selectedCell: Int?
+    fileprivate var closureDidSelectCell: ((Int) -> Void)?
+    fileprivate var closureCancelWithoutSelect: (() -> Void)?
+    fileprivate var cells: [String] = [] {
         didSet {
             tableView?.reloadData()
         }
     }
     
-    var closureDidSelectCell: ((Int) -> Void)?
-    var closureCancelWithoutSelect: (() -> Void)?
-    
     static func makeFromStoryboard(_ configuration: SimpleSelectConfiguration) -> SimpleSelectViewController {
         let vc = SimpleSelectViewController(nibName: "SimpleSelectViewController", bundle: nil)
         vc.cells = configuration.cells ?? []
+        vc.selectedCell = configuration.selectedCell
+        vc.closureDidSelectCell = configuration.closureDidSelectCell
         return vc
     }
     

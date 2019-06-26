@@ -9,18 +9,22 @@
 import Foundation
 
 enum Complexity: String, CaseIterable {
+    case any
     case easy
     case medium
     case hard
 }
 
 enum CookingTime: String, CaseIterable {
+    case any
     case less10
     case less20
     case more20
     
     var title: String {
         switch self {
+        case .any:
+            return "Any"
         case .less10:
             return "0-10 min"
         case .less20:
