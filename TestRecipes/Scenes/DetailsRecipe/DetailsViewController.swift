@@ -99,9 +99,8 @@ extension DetailsViewController: UITableViewDelegate, UITableViewDataSource {
         } else {
             let cell_: TableViewCellProtocol = factory.cell()
             cell = cell_ as? UITableViewCell
-            cell_.configureCell(vm: factory.vm)
         }
-        
+        (cell as? TableViewCellProtocol)?.configureCell(vm: factory.vm)
         return cell ?? UITableViewCell()
     }
     

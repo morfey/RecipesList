@@ -20,6 +20,10 @@ class BasicTableCell: UITableViewCell, TableViewCellProtocol {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func name() -> String {
+        return "BasicTableCell"
+    }
+    
     static func make() -> TableViewCellProtocol {
         return BasicTableCell(style: .value1, reuseIdentifier: String(describing: self))
     }

@@ -64,6 +64,19 @@ class TestRecipesTests: XCTestCase {
         let vc = appDelegate.window?.rootViewController as? DetailsViewController
         XCTAssert(vc?.recipe?.name == "Test Recipe")
     }
+    
+    func testConfigurationBasicCell() {
+        let vm = BaseTableCellViewModel(text: "Ingridient 1")
+        let cell = BasicTableCell()
+        cell.configureCell(vm: vm)
+        XCTAssert(cell.textLabel?.text == "Ingridient 1")
+    }
+    
+    func testCellFactory() {
+        let vm = BaseTableCellViewModel(text: "Ingridient 1")
+        let factory = TableViewCellHelper.factory(for: .baseCell(vm))
+        XCTAssert(factory.cell().name() == "BasicTableCell")
+    }
 
     func testPerformanceExample() {
         // This is an example of a performance test case.

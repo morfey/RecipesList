@@ -31,9 +31,3 @@ enum TableViewCellHelper {
         }
     }
 }
-
-extension TableViewCellProtocol {
-    func name() -> String {
-        return String(describing: self)
-    }
-}
