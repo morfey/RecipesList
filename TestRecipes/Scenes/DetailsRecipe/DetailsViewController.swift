@@ -10,13 +10,13 @@ import UIKit
 
 final class DetailsViewController: UIViewController, Configurable {
     @IBOutlet weak var tableView: UITableView!
-    fileprivate var imageView: UIImageView!
+    @IBOutlet weak var imageViewHeightConst: NSLayoutConstraint!
+    @IBOutlet weak var imageView: UIImageView!
     fileprivate var sections: [SectionType] = []
-    fileprivate lazy var headerHeight: CGFloat = {
-        return view.frame.width * 0.5
-    }()
-    
-    var recipe: Recipe?
+    fileprivate var recipe: Recipe?
+    fileprivate var headerHeight: CGFloat {
+        return view.frame.width * (UIApplication.shared.statusBarOrientation.isPortrait ? 0.5 : 0.3)
+    }
     
     static func makeFromStoryboard(_ configuration: DetailsConfiguration) -> DetailsViewController {
         let vc = UIStoryboard(name: .details).instantiateVC() as! DetailsViewController
@@ -26,7 +26,8 @@ final class DetailsViewController: UIViewController, Configurable {
     
     override func loadView() {
         super.loadView()
-        makeImageView()
+        imageViewHeightConst.constant = headerHeight
+        tableView.contentInset = UIEdgeInsets(top: headerHeight, left: 0, bottom: 0, right: 0)
     }
     
     override func viewDidLoad() {
@@ -88,17 +89,6 @@ final class DetailsViewController: UIViewController, Configurable {
             return .instructions(cells)
         }
         return nil
-    }
-    
-    
-    fileprivate func makeImageView() {
-        imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-        let originY: CGFloat = navigationController?.navigationBar.frame.maxY ?? 0
-        imageView.frame = CGRect(x: 0, y: originY, width: UIScreen.main.bounds.size.width, height: headerHeight)
-        view.addSubview(imageView)
-        tableView.contentInset = UIEdgeInsets(top: headerHeight, left: 0, bottom: 0, right: 0)
     }
 }
 
@@ -162,9 +152,8 @@ extension DetailsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let y = headerHeight - (scrollView.contentOffset.y + headerHeight)
-        let height = min(max(y, 0), UIScreen.main.bounds.size.height)
-        let originY: CGFloat = navigationController?.navigationBar.frame.maxY ?? 0
-        imageView.frame = CGRect(x: 0, y: originY, width: UIScreen.main.bounds.size.width, height: height)
+        let height = min(max(y, 0), view.bounds.size.height)
+        imageViewHeightConst.constant = height
     }
 }
 

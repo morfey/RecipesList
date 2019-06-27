@@ -26,17 +26,28 @@
                                     <outlet property="delegate" destination="I6x-VZ-EDF" id="LHC-xY-FLx"/>
                                 </connections>
                             </tableView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0in-V8-CPf">
+                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="7bJ-bm-Tjo"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="0in-V8-CPf" firstAttribute="top" secondItem="Rnf-X5-G1C" secondAttribute="top" id="2YL-Vm-bgH"/>
+                            <constraint firstItem="0in-V8-CPf" firstAttribute="leading" secondItem="Rnf-X5-G1C" secondAttribute="leading" id="HaL-Nq-Ecd"/>
                             <constraint firstItem="dNj-on-WRh" firstAttribute="top" secondItem="Rnf-X5-G1C" secondAttribute="top" id="LfH-Mr-6Mv"/>
                             <constraint firstItem="Rnf-X5-G1C" firstAttribute="trailing" secondItem="dNj-on-WRh" secondAttribute="trailing" id="SnO-Y3-faS"/>
                             <constraint firstItem="Rnf-X5-G1C" firstAttribute="bottom" secondItem="dNj-on-WRh" secondAttribute="bottom" id="bMb-mn-g07"/>
                             <constraint firstItem="dNj-on-WRh" firstAttribute="leading" secondItem="Rnf-X5-G1C" secondAttribute="leading" id="did-H3-Osw"/>
+                            <constraint firstItem="0in-V8-CPf" firstAttribute="trailing" secondItem="Rnf-X5-G1C" secondAttribute="trailing" id="zQk-Ih-FHR"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Rnf-X5-G1C"/>
                     </view>
                     <connections>
+                        <outlet property="imageView" destination="0in-V8-CPf" id="C8o-y6-fQm"/>
+                        <outlet property="imageViewHeightConst" destination="7bJ-bm-Tjo" id="IAj-AB-BIf"/>
                         <outlet property="tableView" destination="dNj-on-WRh" id="S50-zF-kTj"/>
                     </connections>
                 </viewController>
