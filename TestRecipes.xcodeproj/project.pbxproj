@@ -41,6 +41,7 @@
 		EE733C9A22C3C84600C7B624 /* SimpleSelectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE733C9822C3C84600C7B624 /* SimpleSelectViewController.xib */; };
 		EE733C9C22C3E89B00C7B624 /* DetailsConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE733C9B22C3E89B00C7B624 /* DetailsConfiguration.swift */; };
 		EE733C9E22C3E8BE00C7B624 /* DetailsViewController + SectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE733C9D22C3E8BE00C7B624 /* DetailsViewController + SectionType.swift */; };
+		EE73839522C4D45300DF9B7F /* UIView + loader.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE73839422C4D45300DF9B7F /* UIView + loader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,6 +97,7 @@
 		EE733C9822C3C84600C7B624 /* SimpleSelectViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SimpleSelectViewController.xib; sourceTree = "<group>"; };
 		EE733C9B22C3E89B00C7B624 /* DetailsConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsConfiguration.swift; sourceTree = "<group>"; };
 		EE733C9D22C3E8BE00C7B624 /* DetailsViewController + SectionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DetailsViewController + SectionType.swift"; sourceTree = "<group>"; };
+		EE73839422C4D45300DF9B7F /* UIView + loader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + loader.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -236,6 +238,7 @@
 				EE733C8122C2C17100C7B624 /* Configurable.swift */,
 				EE733C8322C2C43E00C7B624 /* StoryboardName.swift */,
 				EE733C8522C2C9EB00C7B624 /* UIViewController + push.swift */,
+				EE73839422C4D45300DF9B7F /* UIView + loader.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -436,6 +439,7 @@
 			files = (
 				EE733C8222C2C17100C7B624 /* Configurable.swift in Sources */,
 				EE1BC2B522C23DF400DD8D5F /* Recipe.swift in Sources */,
+				EE73839522C4D45300DF9B7F /* UIView + loader.swift in Sources */,
 				EE733C7922C2A4F100C7B624 /* DataStore.swift in Sources */,
 				EE1BC29622C23CF500DD8D5F /* ListRecipesViewController.swift in Sources */,
 				EE1BC2D322C2594800DD8D5F /* ViewControllers.swift in Sources */,

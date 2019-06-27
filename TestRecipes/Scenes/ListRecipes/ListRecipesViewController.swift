@@ -23,10 +23,12 @@ class ListRecipesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.showLoader()
         networkService?.getRecipesList { [weak self] response, error in
             store.items = response ?? []
 
             mainQueue {
+                self?.view.removeLoader()
                 self?.recipesCollectionView.reloadData()
             }
         }
@@ -39,6 +41,11 @@ class ListRecipesViewController: UIViewController {
         searchController?.dimsBackgroundDuringPresentation = false
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        recipesCollectionView.collectionViewLayout.invalidateLayout()
     }
 }
 
@@ -57,10 +64,6 @@ extension ListRecipesViewController: UICollectionViewDelegate, UICollectionViewD
         
         cell.configureCell(item: item)
         return cell
-    }
-    
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -83,7 +86,14 @@ extension ListRecipesViewController: UICollectionViewDelegate, UICollectionViewD
 // MARK: - UICollectionViewDelegateFlowLayout
 extension ListRecipesViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 180, height: 250)
+        let numberOfRows: CGFloat = UIDevice.current.orientation == .portrait ? 2 : 3
+        let ascpect: CGFloat = UIDevice.current.orientation == .portrait ? 1.4 : 1.2
+        if let flowLayout = collectionViewLayout as? UICollectionViewFlowLayout {
+            let spacing = flowLayout.minimumLineSpacing
+            let cellWidth = (collectionView.frame.width - (spacing + (flowLayout.sectionInset.left * numberOfRows))) / numberOfRows
+            return CGSize(width: cellWidth, height: cellWidth * ascpect)
+        }
+        return .zero
     }
 }
 
