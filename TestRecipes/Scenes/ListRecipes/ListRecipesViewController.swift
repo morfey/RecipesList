@@ -12,6 +12,13 @@ class ListRecipesViewController: UIViewController {
     @IBOutlet weak var recipesCollectionView: UICollectionView!
     fileprivate var networkService: NetworkService?
     fileprivate var searchController: UISearchController?
+    fileprivate var collectionViewNumberOfRows: CGFloat {
+        return UIDevice.current.orientation == .portrait ? 2 : 3
+    }
+    
+    fileprivate var cellAspectRatio: CGFloat {
+        return UIDevice.current.orientation == .portrait ? 1.3 : 1.2
+    }
     
     override func loadView() {
         super.loadView()
@@ -86,14 +93,12 @@ extension ListRecipesViewController: UICollectionViewDelegate, UICollectionViewD
 // MARK: - UICollectionViewDelegateFlowLayout
 extension ListRecipesViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let numberOfRows: CGFloat = UIDevice.current.orientation == .portrait ? 2 : 3
-        let ascpect: CGFloat = UIDevice.current.orientation == .portrait ? 1.4 : 1.2
         if let flowLayout = collectionViewLayout as? UICollectionViewFlowLayout {
-            let spacing = flowLayout.minimumLineSpacing
-            let cellWidth = (collectionView.frame.width - (spacing + (flowLayout.sectionInset.left * numberOfRows))) / numberOfRows
-            return CGSize(width: cellWidth, height: cellWidth * ascpect)
+            let spacing = flowLayout.minimumInteritemSpacing
+            let cellWidth = (collectionView.frame.width - (spacing + (flowLayout.sectionInset.left * collectionViewNumberOfRows))) / collectionViewNumberOfRows
+            return CGSize(width: cellWidth, height: cellWidth * cellAspectRatio)
         }
-        return .zero
+        return CGSize(width: 150, height: 190)
     }
 }
 
