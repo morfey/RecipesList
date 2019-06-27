@@ -8,17 +8,11 @@
 
 import UIKit
 
-final class SimpleSelectConfiguration: ConfigurationClass {
-    var cells: [String]?
-    var selectedCell: Int?
-    var closureDidSelectCell: ((Int) -> Void)?
-}
-
 final class SimpleSelectViewController: UIViewController, Configurable {
     @IBOutlet weak var tableView: UITableView!
     fileprivate var selectedCell: Int?
-    fileprivate var closureDidSelectCell: ((Int) -> Void)?
-    fileprivate var closureCancelWithoutSelect: (() -> Void)?
+    fileprivate var closureDidSelectCell: ((Int) -> ())?
+    fileprivate var closureCancelWithoutSelect: (() -> ())?
     fileprivate var cells: [String] = [] {
         didSet {
             tableView?.reloadData()
@@ -76,7 +70,7 @@ extension SimpleSelectViewController: UITableViewDelegate, UITableViewDataSource
         
         if indexPath.row == selectedCell {
             cell.accessoryType = .checkmark
-            cell.textLabel?.textColor = .blue
+            cell.textLabel?.textColor = cell.tintColor
         } else {
             cell.accessoryType = .none
             cell.textLabel?.textColor = .darkText

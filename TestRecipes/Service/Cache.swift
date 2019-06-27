@@ -11,8 +11,8 @@ import Cache
 
 final class Cache {
     static let shared = Cache()
-    
-    let storage: Storage<[Recipe]>
+    typealias T = [Recipe]
+    let storage: Storage<T>
     
     init() {
         let diskConfig = DiskConfig(name: "RecipesCache")
@@ -22,18 +22,18 @@ final class Cache {
             storage = try Storage(
                 diskConfig: diskConfig,
                 memoryConfig: memoryConfig,
-                transformer: TransformerFactory.forCodable(ofType: [Recipe].self)
+                transformer: TransformerFactory.forCodable(ofType: T.self)
             )
         } catch {
             fatalError("Cache cannot be implemented")
         }
     }
     
-    func retriveRecipes() -> [Recipe]? {
+    func retriveRecipes() -> T? {
         return try? storage.object(forKey: "items")
     }
     
-    func store(_ recipes: [Recipe]) {
+    func store(_ recipes: T) {
         try? cache.storage.setObject(recipes, forKey: "items")
     }
 }

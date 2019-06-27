@@ -26,8 +26,11 @@ class ListRecipesViewController: UIViewController {
     override func loadView() {
         super.loadView()
         definesPresentationContext = true
-        recipesCollectionView.register(UINib(nibName: "RecipeCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "cell")
-        recipesCollectionView.register(UINib(nibName: "FilterReusableView", bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "header")
+        recipesCollectionView.register(UINib(nibName: "RecipeCollectionViewCell", bundle: nil),
+                                       forCellWithReuseIdentifier: "cell")
+        recipesCollectionView.register(UINib(nibName: "FilterReusableView", bundle: nil),
+                                       forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                                       withReuseIdentifier: "header")
         buildSearchBar()
     }
     
@@ -42,10 +45,6 @@ class ListRecipesViewController: UIViewController {
                 self?.recipesCollectionView.reloadData()
             }
         }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
     }
     
     fileprivate func buildSearchBar() {
@@ -70,7 +69,8 @@ extension ListRecipesViewController: UICollectionViewDelegate, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? RecipeCollectionViewCell,
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell",
+                                                            for: indexPath) as? RecipeCollectionViewCell,
             let item = dataStore.items[safe: indexPath.item]
         else {
             return UICollectionViewCell()
@@ -81,8 +81,8 @@ extension ListRecipesViewController: UICollectionViewDelegate, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        push(.details {
-            $0.recipe = self.dataStore.items[safe: indexPath.item]
+        push(.details { [weak self] in
+            $0.recipe = self?.dataStore.items[safe: indexPath.item]
         })
     }
     
@@ -122,10 +122,10 @@ extension ListRecipesViewController: FilterViewDelegate {
             self?.recipesCollectionView.reloadData()
         }
         
-        present(ViewControllers.simpleSelect {
+        present(ViewControllers.simpleSelect { [weak self] in
             $0.cells = complexity.map { $0.rawValue.capitalized }
             $0.closureDidSelectCell = complexityClosure
-            $0.selectedCell = complexity.firstIndex(of: self.dataStore.complexityFilter)
+            $0.selectedCell = complexity.firstIndex(of: self?.dataStore.complexityFilter ?? .any)
         }.nav, animated: true, completion: nil)
     }
     
@@ -138,10 +138,10 @@ extension ListRecipesViewController: FilterViewDelegate {
             self?.recipesCollectionView.reloadData()
         }
         
-        present(ViewControllers.simpleSelect {
+        present(ViewControllers.simpleSelect { [weak self] in
             $0.cells = cookingTime.map { $0.title }
             $0.closureDidSelectCell = cookingClosure
-            $0.selectedCell = cookingTime.firstIndex(of: self.dataStore.cookingTime)
+            $0.selectedCell = cookingTime.firstIndex(of: self?.dataStore.cookingTime ?? .any)
         }.nav, animated: true, completion: nil)
     }
     

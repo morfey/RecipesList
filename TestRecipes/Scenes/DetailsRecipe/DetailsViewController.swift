@@ -69,7 +69,7 @@ final class DetailsViewController: UIViewController, Configurable {
         if let ingridientsCount = recipe?.ingredients.count, ingridientsCount != 0 {
             var cells = [CellType]()
             recipe?.ingredients.forEach {
-                let vm = BaseTableCellViewModel(text: $0.name,
+                let vm = BaseTableCellViewModel(text: $0.name.capitalized.trimmingCharacters(in: .whitespaces),
                                                 detailText: $0.quantity,
                                                 numberOfLines: 0)
                 cells.append(.detailsCell(vm))
