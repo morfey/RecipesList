@@ -13,15 +13,16 @@ class ListRecipesViewController: UIViewController {
     fileprivate var networkService: NetworkService?
     fileprivate var searchController: UISearchController?
     fileprivate var collectionViewNumberOfRows: CGFloat {
-        return UIDevice.current.orientation == .portrait ? 2 : 3
+        return UIApplication.shared.statusBarOrientation.isPortrait ? 2 : 3
     }
     
     fileprivate var cellAspectRatio: CGFloat {
-        return UIDevice.current.orientation == .portrait ? 1.3 : 1.2
+        return UIApplication.shared.statusBarOrientation.isPortrait ? 1.35 : 1.25
     }
     
     override func loadView() {
         super.loadView()
+        definesPresentationContext = true
         networkService = NetworkService()
         recipesCollectionView.register(UINib(nibName: "RecipeCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "cell")
         recipesCollectionView.register(UINib(nibName: "FilterReusableView", bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "header")
