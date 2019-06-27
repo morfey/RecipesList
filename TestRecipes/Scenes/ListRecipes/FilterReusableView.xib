@@ -16,16 +16,28 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5JX-MG-9q7">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5JX-MG-9q7">
                     <rect key="frame" x="16" y="10" width="94" height="30"/>
-                    <state key="normal" title="Complexity ▼"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <state key="normal" title="Complexity ▼">
+                        <color key="titleColor" red="0.065995387729999994" green="0.47707122559999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <state key="highlighted">
+                        <color key="titleColor" red="0.065995387729999994" green="0.47707122559999998" blue="1" alpha="0.40619498240000002" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
                     <connections>
                         <action selector="complexityBtnTapped:" destination="U6b-Vx-4bR" eventType="touchUpInside" id="Q2a-pU-l8i"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M4Q-4g-foO">
-                    <rect key="frame" x="160" y="10" width="112" height="30"/>
-                    <state key="normal" title="Cooking Time ▼"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M4Q-4g-foO">
+                    <rect key="frame" x="168" y="10" width="112" height="30"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <state key="normal" title="Cooking Time ▼">
+                        <color key="titleColor" red="0.065995387729999994" green="0.47707122559999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <state key="highlighted">
+                        <color key="titleColor" red="0.065995387732982635" green="0.47707122564315796" blue="1" alpha="0.40619498239436619" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
                     <connections>
                         <action selector="cookingTimeBtnTapped:" destination="U6b-Vx-4bR" eventType="touchUpInside" id="GrJ-5K-qsu"/>
                     </connections>
@@ -34,10 +46,14 @@
             <constraints>
                 <constraint firstItem="5JX-MG-9q7" firstAttribute="leading" secondItem="VXr-Tz-HHm" secondAttribute="leading" constant="16" id="PBp-Yc-ji2"/>
                 <constraint firstItem="M4Q-4g-foO" firstAttribute="centerY" secondItem="U6b-Vx-4bR" secondAttribute="centerY" id="U9v-PW-cEN"/>
-                <constraint firstItem="M4Q-4g-foO" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="centerX" id="dgc-ND-yUZ"/>
+                <constraint firstItem="M4Q-4g-foO" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="centerX" constant="8" id="dgc-ND-yUZ"/>
                 <constraint firstItem="5JX-MG-9q7" firstAttribute="centerY" secondItem="U6b-Vx-4bR" secondAttribute="centerY" id="j7V-z3-zIN"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="VXr-Tz-HHm"/>
+            <connections>
+                <outlet property="complexityBtn" destination="5JX-MG-9q7" id="1CV-8x-4Co"/>
+                <outlet property="cookingTimeBtn" destination="M4Q-4g-foO" id="o7K-hU-DP8"/>
+            </connections>
         </collectionReusableView>
     </objects>
 </document>

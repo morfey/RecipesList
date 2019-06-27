@@ -15,6 +15,8 @@ protocol FilterViewDelegate: class {
 
 class FilterReusableView: UICollectionReusableView {
     weak var delegate: FilterViewDelegate?
+    @IBOutlet weak var complexityBtn: UIButton!
+    @IBOutlet weak var cookingTimeBtn: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -33,7 +33,7 @@ final class Cache {
         return try? storage.object(forKey: "items")
     }
     
-    func storeRecipes() {
-        try? cache.storage.setObject(store.items, forKey: "items")
+    func store(_ recipes: [Recipe]) {
+        try? cache.storage.setObject(recipes, forKey: "items")
     }
 }

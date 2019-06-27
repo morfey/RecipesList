@@ -18,7 +18,7 @@ class DataStore {
     
     var items = [Recipe]() {
         didSet {
-            (items.isEmpty && !isSearching) ? items = cache.retriveRecipes() ?? [] : cache.storeRecipes()
+            (items.isEmpty && !isSearching) ? items = cache.retriveRecipes() ?? [] : cache.store(items)
             if !isSearching { original = items }
         }
     }
@@ -27,7 +27,7 @@ class DataStore {
     
     func filter(with text: String?) {
         isSearching = true
-        if let request = text?.lowercased() {
+        if let request = text?.lowercased(), !request.trimmingCharacters(in: .whitespaces).isEmpty {
             items = original.filter {
                 $0.name.contains(request) ||
                     !$0.ingredients.map { $0.name }.filter { $0.contains(request) }.isEmpty ||
