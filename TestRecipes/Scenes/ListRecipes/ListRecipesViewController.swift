@@ -11,6 +11,7 @@ import UIKit
 class ListRecipesViewController: UIViewController {
     @IBOutlet weak var recipesCollectionView: UICollectionView!
     fileprivate var collectionViewHeader: FilterReusableView?
+    fileprivate var updateRefreshControl: UIRefreshControl!
     fileprivate var searchController: UISearchController?
     fileprivate var networkService = NetworkService()
     fileprivate var dataStore = DataStore()
@@ -26,25 +27,23 @@ class ListRecipesViewController: UIViewController {
     override func loadView() {
         super.loadView()
         definesPresentationContext = true
+        buildSearchBar()
+        
         recipesCollectionView.register(UINib(nibName: "RecipeCollectionViewCell", bundle: nil),
                                        forCellWithReuseIdentifier: "cell")
         recipesCollectionView.register(UINib(nibName: "FilterReusableView", bundle: nil),
                                        forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                        withReuseIdentifier: "header")
-        buildSearchBar()
+        
+        updateRefreshControl = UIRefreshControl()
+        updateRefreshControl.addTarget(self, action: #selector(refreshControlHandler), for: .valueChanged)
+        recipesCollectionView.addSubview(updateRefreshControl)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.showLoader()
-        networkService.getRecipesList { [weak self] response, error in
-            self?.dataStore.items = response ?? []
-
-            mainQueue {
-                self?.view.removeLoader()
-                self?.recipesCollectionView.reloadData()
-            }
-        }
+        loadData()
     }
     
     fileprivate func buildSearchBar() {
@@ -60,11 +59,32 @@ class ListRecipesViewController: UIViewController {
         super.viewWillTransition(to: size, with: coordinator)
         recipesCollectionView.collectionViewLayout.invalidateLayout()
     }
+    
+    fileprivate func loadData() {
+        networkService.getRecipesList { [weak self] response, error in
+            self?.dataStore.items = response ?? []
+            
+            mainQueue {
+                self?.view.removeLoader()
+                self?.recipesCollectionView.reloadData()
+                self?.updateRefreshControl?.endRefreshing()
+            }
+        }
+    }
+    
+    @objc fileprivate func refreshControlHandler() {
+        loadData()
+    }
 }
 
 // MARK: - UICollectionViewDelegate & UICollectionViewDataSource
 extension ListRecipesViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if dataStore.items.count == 0 {
+            collectionView.setEmptyMessage("No Results")
+        } else {
+            collectionView.restore()
+        }
         return dataStore.items.count
     }
     

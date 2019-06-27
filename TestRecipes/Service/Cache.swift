@@ -30,10 +30,10 @@ final class Cache {
     }
     
     func retriveRecipes() -> T? {
-        return try? storage.object(forKey: "items")
+        return try? storage.object(forKey: String(describing: T.self))
     }
     
     func store(_ recipes: T) {
-        try? cache.storage.setObject(recipes, forKey: "items")
+        try? cache.storage.setObject(recipes, forKey: String(describing: T.self))
     }
 }

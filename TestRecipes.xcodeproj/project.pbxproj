@@ -43,6 +43,7 @@
 		EE733C9E22C3E8BE00C7B624 /* DetailsViewController + SectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE733C9D22C3E8BE00C7B624 /* DetailsViewController + SectionType.swift */; };
 		EE73839522C4D45300DF9B7F /* UIView + loader.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE73839422C4D45300DF9B7F /* UIView + loader.swift */; };
 		EE73839722C50D4200DF9B7F /* SimpleSelectConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE73839622C50D4200DF9B7F /* SimpleSelectConfiguration.swift */; };
+		EE73839922C5177000DF9B7F /* UICollectionView + emptyMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE73839822C5177000DF9B7F /* UICollectionView + emptyMessage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,6 +101,7 @@
 		EE733C9D22C3E8BE00C7B624 /* DetailsViewController + SectionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DetailsViewController + SectionType.swift"; sourceTree = "<group>"; };
 		EE73839422C4D45300DF9B7F /* UIView + loader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + loader.swift"; sourceTree = "<group>"; };
 		EE73839622C50D4200DF9B7F /* SimpleSelectConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleSelectConfiguration.swift; sourceTree = "<group>"; };
+		EE73839822C5177000DF9B7F /* UICollectionView + emptyMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView + emptyMessage.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -241,6 +243,7 @@
 				EE733C8322C2C43E00C7B624 /* StoryboardName.swift */,
 				EE733C8522C2C9EB00C7B624 /* UIViewController + push.swift */,
 				EE73839422C4D45300DF9B7F /* UIView + loader.swift */,
+				EE73839822C5177000DF9B7F /* UICollectionView + emptyMessage.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -461,6 +464,7 @@
 				EE733C9222C3BDDE00C7B624 /* FilterReusableView.swift in Sources */,
 				EE733C7B22C2A59900C7B624 /* Array + safe.swift in Sources */,
 				EE1BC2BA22C23FB600DD8D5F /* Router.swift in Sources */,
+				EE73839922C5177000DF9B7F /* UICollectionView + emptyMessage.swift in Sources */,
 				EE733C8D22C37FA800C7B624 /* BasicTableCell.swift in Sources */,
 				EE733C9922C3C84600C7B624 /* SimpleSelectViewController.swift in Sources */,
 				EE733C8022C2C12E00C7B624 /* DetailsViewController.swift in Sources */,
