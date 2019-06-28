@@ -10,11 +10,12 @@ import XCTest
 @testable import TestRecipes
 
 class TestRecipesTests: XCTestCase {
-    var network: NetworkService = NetworkService()
+    var network = NetworkService()
+    var store = DataStore()
     
     let testRecipe = Recipe(name: "Test Recipe",
-                            ingredients: [],
-                            steps: [],
+                            ingredients: [Ingredient(quantity: "1", name: "test ingridient", type: "test type")],
+                            steps: ["Test step 1"],
                             timers: [],
                             imageURL: nil,
                             originalURL: nil)
@@ -72,10 +73,36 @@ class TestRecipesTests: XCTestCase {
         XCTAssert(cell.textLabel?.text == "Ingridient 1")
     }
     
-    func testCellFactory() {
+    func testCellFactoryIdentifier() {
         let vm = BaseTableCellViewModel(text: "Ingridient 1")
         let factory = TableViewCellHelper.factory(for: .baseCell(vm))
         XCTAssert(factory.cell().name() == "BasicTableCell")
+    }
+    
+    func testCellFactoryTitle() {
+        let vm = BaseTableCellViewModel(text: "Ingridient 1")
+        let factory = TableViewCellHelper.factory(for: .baseCell(vm))
+        let cell: TableViewCellProtocol = factory.cell()
+        cell.configureCell(vm: factory.vm)
+        XCTAssert((cell as? UITableViewCell)?.textLabel?.text == "Ingridient 1")
+    }
+    
+    func testSimpleSelectionCells() {
+        Main().startProgram()
+        let cookingTime = CookingTime.allCases.map { $0.title }
+        appDelegate.window?.rootViewController?.present(ViewControllers.simpleSelect {
+            $0.cells = cookingTime
+        }.nav, animated: true, completion: nil)
+        XCTAssert((((appDelegate.window?.rootViewController as? UINavigationController)?.presentedViewController as? UINavigationController)?.topViewController as? SimpleSelectViewController)?.cells == cookingTime)
+    }
+    
+    func testDetailsRecipe() {
+        Main().startProgram(.details { [weak self] in $0.recipe = self?.testRecipe })
+        let vc = appDelegate.window?.rootViewController as? DetailsViewController
+        let numberOfStepsRow = vc?.tableView.numberOfRows(inSection: 2) ?? 0
+        let numberOfIngridientsRows = vc?.tableView.numberOfRows(inSection: 1) ?? 0
+        XCTAssert(numberOfStepsRow == testRecipe.steps.count)
+        XCTAssert(numberOfIngridientsRows == testRecipe.ingredients.count)
     }
 
     func testPerformanceExample() {

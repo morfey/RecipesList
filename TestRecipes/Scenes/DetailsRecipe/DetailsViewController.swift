@@ -12,11 +12,11 @@ final class DetailsViewController: UIViewController, Configurable {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var imageViewHeightConst: NSLayoutConstraint!
     @IBOutlet weak var imageView: UIImageView!
-    fileprivate var sections: [SectionType] = []
-    fileprivate var recipe: Recipe?
     fileprivate var headerHeight: CGFloat {
         return view.frame.width * (UIApplication.shared.statusBarOrientation.isPortrait ? 0.5 : 0.3)
     }
+    private(set) var sections: [SectionType] = []
+    private(set) var recipe: Recipe?
     
     static func makeFromStoryboard(_ configuration: DetailsConfiguration) -> DetailsViewController {
         let vc = UIStoryboard(name: .details).instantiateVC() as! DetailsViewController

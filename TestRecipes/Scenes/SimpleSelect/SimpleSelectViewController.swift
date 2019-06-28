@@ -12,12 +12,7 @@ final class SimpleSelectViewController: UIViewController, Configurable {
     @IBOutlet weak var tableView: UITableView!
     fileprivate var selectedCell: Int?
     fileprivate var closureDidSelectCell: ((Int) -> ())?
-    fileprivate var closureCancelWithoutSelect: (() -> ())?
-    fileprivate var cells: [String] = [] {
-        didSet {
-            tableView?.reloadData()
-        }
-    }
+    private(set) var cells = [String]()
     
     static func makeFromStoryboard(_ configuration: SimpleSelectConfiguration) -> SimpleSelectViewController {
         let vc = SimpleSelectViewController(nibName: "SimpleSelectViewController", bundle: nil)
@@ -31,32 +26,28 @@ final class SimpleSelectViewController: UIViewController, Configurable {
         super.loadView()
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(hide))
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
 
-    func didSelectRow(_ row: Int) {
+    fileprivate func didSelectRow(_ row: Int) {
         closureDidSelectCell?(row)
         hide()
     }
     
-    @objc func hide() {
+    @objc fileprivate func hide() {
         navigationController?.popViewController(animated: true)
         dismiss(animated: true, completion: nil)
     }
 }
 
 extension SimpleSelectViewController: UITableViewDelegate, UITableViewDataSource {
-    final func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    final func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return cells.count
     }
     
-    final func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let identifier = "cell"
         let cell: UITableViewCell
         
@@ -79,7 +70,7 @@ extension SimpleSelectViewController: UITableViewDelegate, UITableViewDataSource
         return cell
     }
     
-    final func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedCell = indexPath.row
         didSelectRow(indexPath.row)
         tableView.reloadData()
