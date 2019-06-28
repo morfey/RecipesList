@@ -211,8 +211,12 @@ extension ListRecipesViewController: UISearchControllerDelegate, UISearchResults
     }
     
     func didDismissSearchController(_ searchController: UISearchController) {
-        dataStore.filter(with: nil)
-        recipesCollectionView.reloadData()
+        if dataStore.items.isEmpty {
+            loadData()
+        } else {
+            dataStore.filter(with: nil)
+            recipesCollectionView.reloadData()
+        }
     }
 }
 
