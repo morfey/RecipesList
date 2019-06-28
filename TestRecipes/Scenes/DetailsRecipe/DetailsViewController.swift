@@ -9,7 +9,7 @@
 import UIKit
 
 final class DetailsViewController: UIViewController, Configurable {
-    @IBOutlet private(set)weak var tableView: UITableView!
+    @IBOutlet private(set) weak var tableView: UITableView!
     @IBOutlet private(set) weak var imageViewHeightConst: NSLayoutConstraint!
     @IBOutlet private(set) weak var imageView: UIImageView!
     fileprivate var headerHeight: CGFloat {
@@ -69,7 +69,7 @@ final class DetailsViewController: UIViewController, Configurable {
         if let ingridientsCount = recipe?.ingredients.count, ingridientsCount != 0 {
             var cells = [CellType]()
             recipe?.ingredients.forEach {
-                let vm = BaseTableCellViewModel(text: $0.name.capitalized.trimmingCharacters(in: .whitespaces),
+                let vm = BaseTableCellViewModel(text: $0.name.trimmingCharacters(in: .whitespaces).capitalizingFirstLetter(),
                                                 detailText: $0.quantity,
                                                 numberOfLines: 0)
                 cells.append(.detailsCell(vm))

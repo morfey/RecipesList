@@ -52,7 +52,7 @@ struct Ingredient: Codable {
 
 extension Recipe {
     var complexity: Complexity {
-        let complexAmount = ingredients.count + steps.count
+        let complexAmount = (timers.reduce(0, +) / steps.count) + ingredients.count
         switch complexAmount {
         case 0...10:
             return .easy
