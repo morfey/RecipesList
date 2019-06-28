@@ -9,9 +9,9 @@
 import UIKit
 
 final class SimpleSelectViewController: UIViewController, Configurable {
-    @IBOutlet weak var tableView: UITableView!
-    fileprivate var selectedCell: Int?
-    fileprivate var closureDidSelectCell: ((Int) -> ())?
+    @IBOutlet private(set) weak var tableView: UITableView!
+    private(set) var selectedCell: Int?
+    private(set) var closureDidSelectCell: ((Int) -> ())?
     private(set) var cells = [String]()
     
     static func makeFromStoryboard(_ configuration: SimpleSelectConfiguration) -> SimpleSelectViewController {

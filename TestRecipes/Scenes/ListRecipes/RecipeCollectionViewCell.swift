@@ -10,10 +10,10 @@ import UIKit
 import Kingfisher
 
 class RecipeCollectionViewCell: UICollectionViewCell {
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var ingridientsCountLabel: UILabel!
-    @IBOutlet weak var minutesCountLabel: UILabel!
+    @IBOutlet private(set) weak var nameLabel: UILabel!
+    @IBOutlet private(set) weak var imageView: UIImageView!
+    @IBOutlet private(set) weak var ingridientsCountLabel: UILabel!
+    @IBOutlet private(set) weak var minutesCountLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -9,7 +9,7 @@
 import UIKit
 
 class ListRecipesViewController: UIViewController {
-    @IBOutlet weak var recipesCollectionView: UICollectionView!
+    @IBOutlet private(set) weak var recipesCollectionView: UICollectionView!
     fileprivate var collectionViewHeader: FilterReusableView?
     fileprivate var updateRefreshControl: UIRefreshControl!
     fileprivate var searchController: UISearchController?

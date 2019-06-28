@@ -9,9 +9,9 @@
 import UIKit
 
 final class DetailsViewController: UIViewController, Configurable {
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var imageViewHeightConst: NSLayoutConstraint!
-    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet private(set)weak var tableView: UITableView!
+    @IBOutlet private(set) weak var imageViewHeightConst: NSLayoutConstraint!
+    @IBOutlet private(set) weak var imageView: UIImageView!
     fileprivate var headerHeight: CGFloat {
         return view.frame.width * (UIApplication.shared.statusBarOrientation.isPortrait ? 0.5 : 0.3)
     }
