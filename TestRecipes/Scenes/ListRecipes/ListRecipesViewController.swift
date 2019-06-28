@@ -15,6 +15,8 @@ class ListRecipesViewController: UIViewController {
     fileprivate var searchController: UISearchController?
     fileprivate var networkService = NetworkService()
     fileprivate var dataStore = DataStore()
+    fileprivate var cellIdentifier = "cell"
+    fileprivate var headerIdentifier = "header"
     
     fileprivate var collectionViewNumberOfRows: CGFloat {
         return UIApplication.shared.statusBarOrientation.isPortrait ? 2 : 3
@@ -25,11 +27,11 @@ class ListRecipesViewController: UIViewController {
         definesPresentationContext = true
         buildSearchBar()
         
-        recipesCollectionView.register(UINib(nibName: "RecipeCollectionViewCell", bundle: nil),
-                                       forCellWithReuseIdentifier: "cell")
-        recipesCollectionView.register(UINib(nibName: "FilterReusableView", bundle: nil),
+        recipesCollectionView.register(UINib(nibName: NibName.recipeCell.rawValue, bundle: nil),
+                                       forCellWithReuseIdentifier: cellIdentifier)
+        recipesCollectionView.register(UINib(nibName: NibName.filterView.rawValue, bundle: nil),
                                        forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                                       withReuseIdentifier: "header")
+                                       withReuseIdentifier: headerIdentifier)
         
         updateRefreshControl = UIRefreshControl()
         updateRefreshControl.addTarget(self, action: #selector(refreshControlHandler), for: .valueChanged)
@@ -100,7 +102,7 @@ extension ListRecipesViewController: UICollectionViewDelegate, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell",
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier,
                                                             for: indexPath) as? RecipeCollectionViewCell,
             let item = dataStore.items[safe: indexPath.item]
         else {
@@ -118,7 +120,7 @@ extension ListRecipesViewController: UICollectionViewDelegate, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let supplementaryView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "header", for: indexPath)
+        let supplementaryView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerIdentifier, for: indexPath)
         let filterView = supplementaryView as? FilterReusableView
         collectionViewHeader = filterView
         filterView?.delegate = self

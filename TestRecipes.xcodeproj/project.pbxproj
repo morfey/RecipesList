@@ -47,6 +47,7 @@
 		EE73839B22C62ACD00DF9B7F /* String + capitalized.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE73839A22C62ACD00DF9B7F /* String + capitalized.swift */; };
 		EE7383A222C633FD00DF9B7F /* EmptyMessageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE7383A122C633FD00DF9B7F /* EmptyMessageView.xib */; };
 		EE7383A422C6346100DF9B7F /* EmptyMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7383A322C6346100DF9B7F /* EmptyMessageView.swift */; };
+		EE7383A622C651CF00DF9B7F /* NibName.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7383A522C651CF00DF9B7F /* NibName.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -108,6 +109,7 @@
 		EE73839A22C62ACD00DF9B7F /* String + capitalized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String + capitalized.swift"; sourceTree = "<group>"; };
 		EE7383A122C633FD00DF9B7F /* EmptyMessageView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmptyMessageView.xib; sourceTree = "<group>"; };
 		EE7383A322C6346100DF9B7F /* EmptyMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyMessageView.swift; sourceTree = "<group>"; };
+		EE7383A522C651CF00DF9B7F /* NibName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibName.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -248,6 +250,7 @@
 				EE733C7A22C2A59900C7B624 /* Array + safe.swift */,
 				EE733C8122C2C17100C7B624 /* Configurable.swift */,
 				EE733C8322C2C43E00C7B624 /* StoryboardName.swift */,
+				EE7383A522C651CF00DF9B7F /* NibName.swift */,
 				EE733C8522C2C9EB00C7B624 /* UIViewController + push.swift */,
 				EE73839422C4D45300DF9B7F /* UIView + loader.swift */,
 				EE73839822C5177000DF9B7F /* UICollectionView + emptyMessage.swift */,
@@ -473,6 +476,7 @@
 				EE733C7722C26FF500C7B624 /* Cache.swift in Sources */,
 				EE7383A422C6346100DF9B7F /* EmptyMessageView.swift in Sources */,
 				EE1BC2DA22C25BF100DD8D5F /* RecipeCollectionViewCell.swift in Sources */,
+				EE7383A622C651CF00DF9B7F /* NibName.swift in Sources */,
 				EE733C8622C2C9EB00C7B624 /* UIViewController + push.swift in Sources */,
 				EE733C8822C37E4000C7B624 /* TableViewCellProtocol.swift in Sources */,
 				EE733C9E22C3E8BE00C7B624 /* DetailsViewController + SectionType.swift in Sources */,

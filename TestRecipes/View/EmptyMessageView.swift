@@ -31,7 +31,7 @@ class EmptyMessageView: UIView {
 
 extension EmptyMessageView {
     func commonInit() {
-        Bundle.main.loadNibNamed("EmptyMessageView", owner: self, options: nil)
+        Bundle.main.loadNibNamed(NibName.emptyView.rawValue, owner: self, options: nil)
         addSubview(contentView)
         contentView.frame = bounds
         contentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]

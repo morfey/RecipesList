@@ -15,7 +15,7 @@ final class SimpleSelectViewController: UIViewController, Configurable {
     private(set) var cells = [String]()
     
     static func makeFromStoryboard(_ configuration: SimpleSelectConfiguration) -> SimpleSelectViewController {
-        let vc = SimpleSelectViewController(nibName: "SimpleSelectViewController", bundle: nil)
+        let vc = SimpleSelectViewController(nibName: NibName.simpleSelect.rawValue, bundle: nil)
         vc.cells = configuration.cells ?? []
         vc.selectedCell = configuration.selectedCell
         vc.closureDidSelectCell = configuration.closureDidSelectCell
@@ -39,10 +39,6 @@ final class SimpleSelectViewController: UIViewController, Configurable {
 }
 
 extension SimpleSelectViewController: UITableViewDelegate, UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return cells.count
     }
