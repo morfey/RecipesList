@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EmptyMessageView" customModule="TestRecipes" customModuleProvider="target">
+            <connections>
+                <outlet property="contentView" destination="YHl-zA-R64" id="hUX-ch-12x"/>
+                <outlet property="reloadBtn" destination="0cY-w6-00B" id="6Vd-uy-aQ6"/>
+                <outlet property="textLabel" destination="zge-NP-bIO" id="vQK-xb-JEb"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="YHl-zA-R64">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zge-NP-bIO">
+                    <rect key="frame" x="186" y="437.5" width="42" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0cY-w6-00B">
+                    <rect key="frame" x="157" y="466.5" width="100" height="30"/>
+                    <color key="backgroundColor" red="0.065995387729999994" green="0.47707122559999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="100" id="tM6-mE-6Od"/>
+                    </constraints>
+                    <state key="normal" title="Reload">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <integer key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="reloadBtnTapped:" destination="-1" eventType="touchUpInside" id="Ok7-9d-oLe"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="zge-NP-bIO" firstAttribute="centerX" secondItem="YHl-zA-R64" secondAttribute="centerX" id="C5b-4U-ncv"/>
+                <constraint firstItem="0cY-w6-00B" firstAttribute="centerX" secondItem="YHl-zA-R64" secondAttribute="centerX" id="LSm-At-gNe"/>
+                <constraint firstItem="0cY-w6-00B" firstAttribute="top" secondItem="zge-NP-bIO" secondAttribute="bottom" constant="8" id="OGc-As-QCI"/>
+                <constraint firstItem="zge-NP-bIO" firstAttribute="centerY" secondItem="YHl-zA-R64" secondAttribute="centerY" id="hBb-EJ-r62"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="zHX-hE-dmy"/>
+        </view>
+    </objects>
+</document>

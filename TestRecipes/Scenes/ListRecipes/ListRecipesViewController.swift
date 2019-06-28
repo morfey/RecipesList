@@ -62,12 +62,27 @@ class ListRecipesViewController: UIViewController {
     
     fileprivate func loadData() {
         networkService.getRecipesList { [weak self] response, error in
-            self?.dataStore.items = response ?? []
+            let tapClosure: (() -> ())? = { [weak self] in
+                self?.view.showLoader()
+                self?.loadData()
+            }
             
-            mainQueue {
-                self?.view.removeLoader()
-                self?.recipesCollectionView.reloadData()
-                self?.updateRefreshControl?.endRefreshing()
+            if let error = error {
+                mainQueue { [weak self] in
+                    self?.view.removeLoader()
+                    self?.collectionViewHeader?.isHidden = true
+                    self?.recipesCollectionView.setEmptyView(error, action: tapClosure)
+                }
+            } else {
+                self?.dataStore.items = response ?? []
+                
+                mainQueue { [weak self] in
+                    self?.view.removeLoader()
+                    self?.collectionViewHeader?.isHidden = false
+                    self?.recipesCollectionView.restore()
+                    self?.recipesCollectionView.reloadData()
+                    self?.updateRefreshControl?.endRefreshing()
+                }
             }
         }
     }
@@ -81,7 +96,7 @@ class ListRecipesViewController: UIViewController {
 extension ListRecipesViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if dataStore.items.count == 0 {
-            collectionView.setEmptyMessage("No Results")
+            collectionView.setEmptyView("No Results", action: nil)
         } else {
             collectionView.restore()
         }

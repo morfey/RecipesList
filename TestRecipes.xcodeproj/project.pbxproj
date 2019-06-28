@@ -45,6 +45,8 @@
 		EE73839722C50D4200DF9B7F /* SimpleSelectConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE73839622C50D4200DF9B7F /* SimpleSelectConfiguration.swift */; };
 		EE73839922C5177000DF9B7F /* UICollectionView + emptyMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE73839822C5177000DF9B7F /* UICollectionView + emptyMessage.swift */; };
 		EE73839B22C62ACD00DF9B7F /* String + capitalized.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE73839A22C62ACD00DF9B7F /* String + capitalized.swift */; };
+		EE7383A222C633FD00DF9B7F /* EmptyMessageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE7383A122C633FD00DF9B7F /* EmptyMessageView.xib */; };
+		EE7383A422C6346100DF9B7F /* EmptyMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7383A322C6346100DF9B7F /* EmptyMessageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -104,6 +106,8 @@
 		EE73839622C50D4200DF9B7F /* SimpleSelectConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleSelectConfiguration.swift; sourceTree = "<group>"; };
 		EE73839822C5177000DF9B7F /* UICollectionView + emptyMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView + emptyMessage.swift"; sourceTree = "<group>"; };
 		EE73839A22C62ACD00DF9B7F /* String + capitalized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String + capitalized.swift"; sourceTree = "<group>"; };
+		EE7383A122C633FD00DF9B7F /* EmptyMessageView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmptyMessageView.xib; sourceTree = "<group>"; };
+		EE7383A322C6346100DF9B7F /* EmptyMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyMessageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,6 +177,7 @@
 				EE1BC2B622C23F6E00DD8D5F /* Service */,
 				EE1BC2B322C23DCD00DD8D5F /* Model */,
 				EE1BC2C722C2518200DD8D5F /* Helpers */,
+				EE73839C22C6326900DF9B7F /* View */,
 				EE1BC29322C23CF500DD8D5F /* AppDelegate.swift */,
 				EE1BC29A22C23CF700DD8D5F /* Assets.xcassets */,
 				EE1BC29C22C23CF700DD8D5F /* LaunchScreen.storyboard */,
@@ -274,6 +279,15 @@
 			path = SimpleSelect;
 			sourceTree = "<group>";
 		};
+		EE73839C22C6326900DF9B7F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				EE7383A122C633FD00DF9B7F /* EmptyMessageView.xib */,
+				EE7383A322C6346100DF9B7F /* EmptyMessageView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -362,6 +376,7 @@
 				EE1BC2DB22C25BF100DD8D5F /* RecipeCollectionViewCell.xib in Resources */,
 				EE1BC29E22C23CF700DD8D5F /* LaunchScreen.storyboard in Resources */,
 				EE733C9A22C3C84600C7B624 /* SimpleSelectViewController.xib in Resources */,
+				EE7383A222C633FD00DF9B7F /* EmptyMessageView.xib in Resources */,
 				EE733C9322C3BDDE00C7B624 /* FilterReusableView.xib in Resources */,
 				EE1BC29B22C23CF700DD8D5F /* Assets.xcassets in Resources */,
 				EE1BC2D522C25A4700DD8D5F /* ListRecipes.storyboard in Resources */,
@@ -456,6 +471,7 @@
 				EE733C8B22C37EC200C7B624 /* BaseTableCellViewModel.swift in Sources */,
 				EE1BC2CF22C2589300DD8D5F /* Main.swift in Sources */,
 				EE733C7722C26FF500C7B624 /* Cache.swift in Sources */,
+				EE7383A422C6346100DF9B7F /* EmptyMessageView.swift in Sources */,
 				EE1BC2DA22C25BF100DD8D5F /* RecipeCollectionViewCell.swift in Sources */,
 				EE733C8622C2C9EB00C7B624 /* UIViewController + push.swift in Sources */,
 				EE733C8822C37E4000C7B624 /* TableViewCellProtocol.swift in Sources */,
