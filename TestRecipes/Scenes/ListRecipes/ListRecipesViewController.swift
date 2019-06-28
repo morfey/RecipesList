@@ -20,10 +20,6 @@ class ListRecipesViewController: UIViewController {
         return UIApplication.shared.statusBarOrientation.isPortrait ? 2 : 3
     }
     
-    fileprivate var cellAspectRatio: CGFloat {
-        return UIApplication.shared.statusBarOrientation.isPortrait ? 1.35 : 1.25
-    }
-    
     override func loadView() {
         super.loadView()
         definesPresentationContext = true
@@ -140,7 +136,7 @@ extension ListRecipesViewController: UICollectionViewDelegateFlowLayout {
         if let flowLayout = collectionViewLayout as? UICollectionViewFlowLayout {
             let spacing = flowLayout.minimumInteritemSpacing
             let cellWidth = (collectionView.frame.width - (spacing + (flowLayout.sectionInset.left * collectionViewNumberOfRows))) / collectionViewNumberOfRows
-            return CGSize(width: cellWidth, height: cellWidth * cellAspectRatio)
+            return CGSize(width: cellWidth, height: cellWidth + 60)
         }
         return CGSize(width: 150, height: 190)
     }
