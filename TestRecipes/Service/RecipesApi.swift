@@ -37,7 +37,3 @@ extension RecipesApi: EndPointType {
         return nil
     }
 }
-
-struct RecipesApiResponse: Codable {
-    let items: [Recipe]
-}

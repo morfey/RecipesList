@@ -11,7 +11,6 @@ import Foundation
 class DataStore {
     private var isSearching = false
     private var original = [Recipe]()
-    static let shared = DataStore()
     
     var complexityFilter: Complexity = .any
     var cookingTime: CookingTime = .any
@@ -23,15 +22,13 @@ class DataStore {
         }
     }
     
-    init() {}
-    
     func filter(with text: String?) {
         isSearching = true
         if let request = text?.lowercased(), !request.trimmingCharacters(in: .whitespaces).isEmpty {
             items = original.filter {
                 $0.name.contains(request) ||
-                    !$0.ingredients.map { $0.name }.filter { $0.contains(request) }.isEmpty ||
-                    !$0.steps.filter { $0.contains(request) }.isEmpty
+                !$0.ingredients.map { $0.name }.filter { $0.contains(request) }.isEmpty ||
+                !$0.steps.filter { $0.contains(request) }.isEmpty
             }
         } else {
             items = original

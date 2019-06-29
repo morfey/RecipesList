@@ -16,8 +16,8 @@ extension UIView {
         addSubview(errorView)
         errorView.textLabel.text = message
         errorView.tapClosure = action
-        errorView.layer.zPosition = 1
         errorView.frame = bounds
+        bringSubviewToFront(errorView)
     }
     
     func removeErrorView() {
