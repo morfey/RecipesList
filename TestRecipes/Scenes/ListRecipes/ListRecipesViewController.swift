@@ -22,6 +22,11 @@ class ListRecipesViewController: UIViewController {
         return UIApplication.shared.statusBarOrientation.isPortrait ? 2 : 3
     }
     
+    fileprivate lazy var tapClosure: (() -> ())? = { [weak self] in
+        self?.view.showLoader()
+        self?.loadData()
+    }
+    
     override func loadView() {
         super.loadView()
         definesPresentationContext = true
@@ -60,26 +65,21 @@ class ListRecipesViewController: UIViewController {
     
     fileprivate func loadData() {
         networkService.getRecipesList { [weak self] response, error in
-            let tapClosure: (() -> ())? = { [weak self] in
-                self?.view.showLoader()
-                self?.loadData()
+            self?.dataStore.items = response ?? []
+            
+            mainQueue { [weak self] in
+                self?.view.removeLoader()
+                self?.updateRefreshControl?.endRefreshing()
             }
             
-            if let error = error {
+            if let error = error, self?.dataStore.items.isEmpty == true {
                 mainQueue { [weak self] in
-                    self?.view.removeLoader()
-                    self?.collectionViewHeader?.isHidden = true
-                    self?.recipesCollectionView.setEmptyView(error, action: tapClosure)
+                    self?.view.showErrorView(error, action: self?.tapClosure)
                 }
             } else {
-                self?.dataStore.items = response ?? []
-                
                 mainQueue { [weak self] in
-                    self?.view.removeLoader()
-                    self?.collectionViewHeader?.isHidden = false
-                    self?.recipesCollectionView.restore()
+                    self?.view.removeErrorView()
                     self?.recipesCollectionView.reloadData()
-                    self?.updateRefreshControl?.endRefreshing()
                 }
             }
         }
@@ -93,8 +93,8 @@ class ListRecipesViewController: UIViewController {
 // MARK: - UICollectionViewDelegate & UICollectionViewDataSource
 extension ListRecipesViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if dataStore.items.count == 0 {
-            collectionView.setEmptyView("No Results", action: nil)
+        if dataStore.items.isEmpty {
+            collectionView.setEmptyMessage("No Results")
         } else {
             collectionView.restore()
         }
@@ -209,12 +209,8 @@ extension ListRecipesViewController: UISearchControllerDelegate, UISearchResults
     }
     
     func didDismissSearchController(_ searchController: UISearchController) {
-        if dataStore.items.isEmpty {
-            loadData()
-        } else {
-            dataStore.filter(with: nil)
-            recipesCollectionView.reloadData()
-        }
+        dataStore.filter(with: nil)
+        recipesCollectionView.reloadData()
     }
 }
 

@@ -8,10 +8,11 @@
 
 import UIKit
 
-class EmptyMessageView: UIView {
+class ErrorMessageView: UIView {
     @IBOutlet private(set) weak var textLabel: UILabel!
     @IBOutlet private(set) weak var contentView: UIView!
     @IBOutlet private(set) weak var reloadBtn: UIButton!
+    static let viewTag = 8090
     var tapClosure: (() -> ())?
     
     override init(frame: CGRect) {
@@ -29,11 +30,12 @@ class EmptyMessageView: UIView {
     }
 }
 
-extension EmptyMessageView {
+extension ErrorMessageView {
     func commonInit() {
         Bundle.main.loadNibNamed(NibName.emptyView.rawValue, owner: self, options: nil)
         addSubview(contentView)
         contentView.frame = bounds
         contentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        tag = ErrorMessageView.viewTag
     }
 }

@@ -10,13 +10,13 @@ import Foundation
 import UIKit
 
 extension UICollectionView {
-    func setEmptyView(_ message: String, action: (() -> ())?) {
-        let empty = EmptyMessageView()
-        empty.textLabel.text = message
-        empty.tapClosure = action
-        empty.reloadBtn.isHidden = action == nil
+    func setEmptyMessage(_ message: String) {
+        let messageLabel = UILabel(frame: CGRect(origin: .zero, size: bounds.size))
+        messageLabel.text = message
+        messageLabel.textAlignment = .center
+        messageLabel.sizeToFit()
         
-        self.backgroundView = empty
+        self.backgroundView = messageLabel
     }
     
     func restore() {
