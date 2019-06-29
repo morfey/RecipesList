@@ -21,8 +21,8 @@ final class Main {
     
     private func loadWindow() {
         let window = UIWindow.init(frame: UIScreen.main.bounds)
-        let storyboard = UIStoryboard(name: "LaunchScreen", bundle: nil)
-        window.rootViewController = storyboard.instantiateViewController(withIdentifier: "LaunchScreenController")
+        let storyboard = UIStoryboard(name: .launch)
+        window.rootViewController = storyboard.instantiateVC()
         appDelegate.window = window
         window.makeKeyAndVisible()
     }

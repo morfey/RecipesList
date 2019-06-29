@@ -12,6 +12,7 @@ import UIKit
 enum StoryboardName: String {
     case list    = "ListRecipes"
     case details = "DetailsRecipe"
+    case launch  = "LaunchScreen"
 }
 
 extension UIStoryboard {
