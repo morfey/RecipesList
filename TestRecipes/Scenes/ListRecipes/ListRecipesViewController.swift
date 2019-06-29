@@ -74,11 +74,11 @@ class ListRecipesViewController: UIViewController {
             
             if let error = error, self?.dataStore.items.isEmpty == true {
                 mainQueue { [weak self] in
-                    self?.showErrorView(error, action: self?.tapClosure)
+                    self?.view.showErrorView(error, action: self?.tapClosure)
                 }
             } else {
                 mainQueue { [weak self] in
-                    self?.removeErrorView()
+                    self?.view.removeErrorView()
                     self?.recipesCollectionView.reloadData()
                 }
             }
@@ -87,20 +87,6 @@ class ListRecipesViewController: UIViewController {
     
     @objc fileprivate func refreshControlHandler() {
         loadData()
-    }
-    
-    fileprivate func showErrorView(_ message: String, action: (() -> ())?) {
-        removeErrorView()
-        let errorView = ErrorMessageView()
-        view.addSubview(errorView)
-        errorView.textLabel.text = message
-        errorView.tapClosure = action
-        errorView.layer.zPosition = 1
-        errorView.frame = view.bounds
-    }
-    
-    fileprivate func removeErrorView() {
-        view.viewWithTag(ErrorMessageView.viewTag)?.removeFromSuperview()
     }
 }
 

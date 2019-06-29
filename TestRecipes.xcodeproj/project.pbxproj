@@ -48,6 +48,7 @@
 		EE7383A222C633FD00DF9B7F /* EmptyMessageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE7383A122C633FD00DF9B7F /* EmptyMessageView.xib */; };
 		EE7383A422C6346100DF9B7F /* ErrorMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7383A322C6346100DF9B7F /* ErrorMessageView.swift */; };
 		EE7383A622C651CF00DF9B7F /* NibName.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7383A522C651CF00DF9B7F /* NibName.swift */; };
+		EE7383AA22C7C42100DF9B7F /* UIView + errorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7383A922C7C42100DF9B7F /* UIView + errorView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,6 +110,7 @@
 		EE7383A122C633FD00DF9B7F /* EmptyMessageView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmptyMessageView.xib; sourceTree = "<group>"; };
 		EE7383A322C6346100DF9B7F /* ErrorMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessageView.swift; sourceTree = "<group>"; };
 		EE7383A522C651CF00DF9B7F /* NibName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibName.swift; sourceTree = "<group>"; };
+		EE7383A922C7C42100DF9B7F /* UIView + errorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + errorView.swift"; sourceTree = "<group>"; };
 		F840D6DA35075EB1BA98224B /* Pods-TestRecipes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestRecipes.release.xcconfig"; path = "Target Support Files/Pods-TestRecipes/Pods-TestRecipes.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -255,6 +257,7 @@
 				EE73839422C4D45300DF9B7F /* UIView + loader.swift */,
 				EE73839822C5177000DF9B7F /* UICollectionView + emptyMessage.swift */,
 				EE73839A22C62ACD00DF9B7F /* String + capitalized.swift */,
+				EE7383A922C7C42100DF9B7F /* UIView + errorView.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -481,6 +484,7 @@
 				EE733C8822C37E4000C7B624 /* TableViewCellProtocol.swift in Sources */,
 				EE733C9E22C3E8BE00C7B624 /* DetailsViewController + SectionType.swift in Sources */,
 				EE1BC2D122C258F000DD8D5F /* GlobalVariables.swift in Sources */,
+				EE7383AA22C7C42100DF9B7F /* UIView + errorView.swift in Sources */,
 				EE733C8422C2C43E00C7B624 /* StoryboardName.swift in Sources */,
 				EE733C9C22C3E89B00C7B624 /* DetailsConfiguration.swift in Sources */,
 				EE73839722C50D4200DF9B7F /* SimpleSelectConfiguration.swift in Sources */,

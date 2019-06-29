@@ -104,6 +104,19 @@ class TestRecipesTests: XCTestCase {
         XCTAssert(numberOfStepsRow == testRecipe.steps.count)
         XCTAssert(numberOfIngridientsRows == testRecipe.ingredients.count)
     }
+    
+    func testErrorViewAppear() {
+        let vc = UIStoryboard(name: .list).instantiateVC()
+        vc.view.showErrorView("Test Error", action: nil)
+        XCTAssert(vc.view.viewWithTag(ErrorMessageView.viewTag) != nil)
+    }
+    
+    func testErrorViewRemove() {
+        let vc = UIStoryboard(name: .list).instantiateVC()
+        vc.view.showErrorView("Test Error", action: nil)
+        vc.view.removeErrorView()
+        XCTAssert(vc.view.viewWithTag(ErrorMessageView.viewTag) == nil)
+    }
 
     func testPerformanceExample() {
         // This is an example of a performance test case.
