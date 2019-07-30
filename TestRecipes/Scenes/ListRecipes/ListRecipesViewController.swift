@@ -9,17 +9,30 @@
 import UIKit
 
 class ListRecipesViewController: UIViewController {
-    @IBOutlet private(set) weak var recipesCollectionView: UICollectionView!
+    typealias Factory = ViewControllerFactory & NetworkServiceFactory & DataSouceFactory
+    
+    @IBOutlet private weak var recipesCollectionView: UICollectionView!
     fileprivate var collectionViewHeader: FilterReusableView?
     fileprivate var updateRefreshControl: UIRefreshControl!
     fileprivate var searchController: UISearchController?
-    fileprivate var networkService = NetworkService()
-    fileprivate var dataStore = DataStore()
     fileprivate var cellIdentifier = "cell"
     fileprivate var headerIdentifier = "header"
     
+    private(set) var factory: Factory
+    private lazy var networkService = factory.makeNetworkService()
+    private lazy var dataStore = factory.makeDataSource()
+    
     fileprivate var collectionViewNumberOfRows: CGFloat {
         return UIApplication.shared.statusBarOrientation.isPortrait ? 2 : 3
+    }
+    
+    init(factory: Factory) {
+        self.factory = factory
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     fileprivate lazy var tapClosure: (() -> ())? = { [weak self] in
@@ -27,35 +40,14 @@ class ListRecipesViewController: UIViewController {
         self?.loadData()
     }
     
-    override func loadView() {
-        super.loadView()
-        definesPresentationContext = true
-        buildSearchBar()
-        
-        recipesCollectionView.register(UINib(nibName: NibName.recipeCell.rawValue, bundle: nil),
-                                       forCellWithReuseIdentifier: cellIdentifier)
-        recipesCollectionView.register(UINib(nibName: NibName.filterView.rawValue, bundle: nil),
-                                       forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                                       withReuseIdentifier: headerIdentifier)
-        
-        updateRefreshControl = UIRefreshControl()
-        updateRefreshControl.addTarget(self, action: #selector(refreshControlHandler), for: .valueChanged)
-        recipesCollectionView.addSubview(updateRefreshControl)
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.showLoader()
+        
+        buildSearchBar()
+        buildCollectionView()
+        
         loadData()
-    }
-    
-    fileprivate func buildSearchBar() {
-        searchController = UISearchController(searchResultsController: nil)
-        searchController?.delegate = self
-        searchController?.searchResultsUpdater = self
-        searchController?.dimsBackgroundDuringPresentation = false
-        navigationItem.searchController = searchController
-        navigationItem.hidesSearchBarWhenScrolling = false
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -114,9 +106,10 @@ extension ListRecipesViewController: UICollectionViewDelegate, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        push(.details { [weak self] in
-            $0.recipe = self?.dataStore.items[safe: indexPath.item]
-        })
+        if let item = dataStore.items[safe: indexPath.item] {
+            let vc = factory.makeDetailsRecipeViewController(recipe: item)
+            navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -155,11 +148,13 @@ extension ListRecipesViewController: FilterViewDelegate {
             self?.recipesCollectionView.reloadData()
         }
         
-        present(ViewControllers.simpleSelect { [weak self] in
-            $0.cells = complexity.map { $0.rawValue.capitalized }
-            $0.closureDidSelectCell = complexityClosure
-            $0.selectedCell = complexity.firstIndex(of: self?.dataStore.complexityFilter ?? .any)
-        }.nav, animated: true, completion: nil)
+        let conf = SimpleSelectConfiguration()
+        conf.cells = complexity.map { $0.rawValue.capitalized }
+        conf.closureDidSelectCell = complexityClosure
+        conf.selectedCell = complexity.firstIndex(of: dataStore.complexityFilter)
+        let vc = factory.makeSimpleSelectViewController(configuration: conf)
+        let nav = UINavigationController(rootViewController: vc)
+        present(nav, animated: true, completion: nil)
     }
     
     func showCookingTimeFilter() {
@@ -171,11 +166,13 @@ extension ListRecipesViewController: FilterViewDelegate {
             self?.recipesCollectionView.reloadData()
         }
         
-        present(ViewControllers.simpleSelect { [weak self] in
-            $0.cells = cookingTime.map { $0.title }
-            $0.closureDidSelectCell = cookingClosure
-            $0.selectedCell = cookingTime.firstIndex(of: self?.dataStore.cookingTime ?? .any)
-        }.nav, animated: true, completion: nil)
+        let conf = SimpleSelectConfiguration()
+        conf.cells = cookingTime.map { $0.title }
+        conf.closureDidSelectCell = cookingClosure
+        conf.selectedCell = cookingTime.firstIndex(of: dataStore.cookingTime)
+        let vc = factory.makeSimpleSelectViewController(configuration: conf)
+        let nav = UINavigationController(rootViewController: vc)
+        present(nav, animated: true, completion: nil)
     }
     
     fileprivate func setComplexityBtnTiile() {
@@ -211,6 +208,31 @@ extension ListRecipesViewController: UISearchControllerDelegate, UISearchResults
     func didDismissSearchController(_ searchController: UISearchController) {
         dataStore.filter(with: nil)
         recipesCollectionView.reloadData()
+    }
+}
+
+// MARK: - Setup View
+extension ListRecipesViewController {
+    fileprivate func buildCollectionView() {
+        recipesCollectionView.register(UINib(nibName: NibName.recipeCell.rawValue, bundle: nil),
+                                       forCellWithReuseIdentifier: cellIdentifier)
+        recipesCollectionView.register(UINib(nibName: NibName.filterView.rawValue, bundle: nil),
+                                       forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                                       withReuseIdentifier: headerIdentifier)
+        
+        updateRefreshControl = UIRefreshControl()
+        updateRefreshControl.addTarget(self, action: #selector(refreshControlHandler), for: .valueChanged)
+        recipesCollectionView.addSubview(updateRefreshControl)
+    }
+    
+    fileprivate func buildSearchBar() {
+        definesPresentationContext = true
+        searchController = UISearchController(searchResultsController: nil)
+        searchController?.delegate = self
+        searchController?.searchResultsUpdater = self
+        searchController?.dimsBackgroundDuringPresentation = false
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
     }
 }
 

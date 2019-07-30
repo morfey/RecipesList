@@ -8,31 +8,30 @@
 
 import UIKit
 
-final class DetailsViewController: UIViewController, Configurable {
+final class DetailsViewController: UIViewController {
     @IBOutlet private(set) weak var tableView: UITableView!
-    @IBOutlet private(set) weak var imageViewHeightConst: NSLayoutConstraint!
-    @IBOutlet private(set) weak var imageView: UIImageView!
+    @IBOutlet private weak var imageViewHeightConst: NSLayoutConstraint!
+    @IBOutlet private weak var imageView: UIImageView!
     fileprivate var headerHeight: CGFloat {
         return view.frame.width * (UIApplication.shared.statusBarOrientation.isPortrait ? 0.5 : 0.3)
     }
     private(set) var sections: [SectionType] = []
     private(set) var recipe: Recipe?
     
-    static func makeFromStoryboard(_ configuration: DetailsConfiguration) -> DetailsViewController {
-        let vc = UIStoryboard(name: .details).instantiateVC() as! DetailsViewController
-        vc.recipe = configuration.recipe
-        return vc
+    init(recipe: Recipe) {
+        self.recipe = recipe
+        super.init(nibName: nil, bundle: nil)
     }
     
-    override func loadView() {
-        super.loadView()
-        imageViewHeightConst.constant = headerHeight
-        tableView.contentInset = UIEdgeInsets(top: headerHeight, left: 0, bottom: 0, right: 0)
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         reloadSections()
+        imageViewHeightConst.constant = headerHeight
+        tableView.contentInset = UIEdgeInsets(top: headerHeight, left: 0, bottom: 0, right: 0)
         imageView.kf.setImage(with: URL(string: recipe?.imageURL ?? ""), placeholder: #imageLiteral(resourceName: "placeholder"))
     }
     

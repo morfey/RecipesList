@@ -10,19 +10,18 @@ import Foundation
 import UIKit
 
 final class Main {
-    func startProgram(_ vc: ViewControllers? = nil) {
+    func startProgram() {
         loadWindow()
-        if let vc = vc {
-            appDelegate.window?.rootViewController = vc.vc
-        } else {
-            appDelegate.window?.rootViewController = ViewControllers.list.vc
-        }
+        let container = DependencyContainer()
+        let listViewController = container.makeListRecipesViewController()
+        let navigationController = UINavigationController(rootViewController: listViewController)
+        appDelegate.window?.rootViewController = navigationController
     }
     
     private func loadWindow() {
         let window = UIWindow.init(frame: UIScreen.main.bounds)
-        let storyboard = UIStoryboard(name: .launch)
-        window.rootViewController = storyboard.instantiateVC()
+        let storyboard = UIStoryboard(name: "LaunchScreen", bundle: nil)
+        window.rootViewController = storyboard.instantiateInitialViewController()
         appDelegate.window = window
         window.makeKeyAndVisible()
     }

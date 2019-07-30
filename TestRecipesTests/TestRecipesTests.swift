@@ -11,7 +11,7 @@ import XCTest
 
 class TestRecipesTests: XCTestCase {
     var network = NetworkService()
-    var store = DataStore()
+    var store = DataSource()
     
     let testRecipe = Recipe(name: "Test Recipe",
                             ingredients: [Ingredient(quantity: "1", name: "test ingridient", type: "test type")],
@@ -46,11 +46,6 @@ class TestRecipesTests: XCTestCase {
         XCTAssert((appDelegate.window?.rootViewController as? UINavigationController)?.topViewController is ListRecipesViewController)
     }
     
-    func testCustomNavigationFlow() {
-        Main().startProgram(.details({_ in }))
-        XCTAssertFalse((appDelegate.window?.rootViewController as? UINavigationController)?.topViewController is ListRecipesViewController)
-    }
-    
     func testCacheResponse() {
         store.items = []
         if let recipes = cache.retriveRecipes(), !recipes.isEmpty {
@@ -58,12 +53,6 @@ class TestRecipesTests: XCTestCase {
         } else {
             XCTAssert(store.items.isEmpty)
         }
-    }
-    
-    func testDetailsConfiguration() {
-        Main().startProgram(.details { $0.recipe = self.testRecipe })
-        let vc = appDelegate.window?.rootViewController as? DetailsViewController
-        XCTAssert(vc?.recipe?.name == "Test Recipe")
     }
     
     func testConfigurationBasicCell() {
@@ -85,37 +74,6 @@ class TestRecipesTests: XCTestCase {
         let cell: TableViewCellProtocol = factory.cell()
         cell.configureCell(vm: factory.vm)
         XCTAssert((cell as? UITableViewCell)?.textLabel?.text == "Ingridient 1")
-    }
-    
-    func testSimpleSelectionCells() {
-        Main().startProgram()
-        let cookingTime = CookingTime.allCases.map { $0.title }
-        appDelegate.window?.rootViewController?.present(ViewControllers.simpleSelect {
-            $0.cells = cookingTime
-        }.nav, animated: true, completion: nil)
-        XCTAssert((((appDelegate.window?.rootViewController as? UINavigationController)?.presentedViewController as? UINavigationController)?.topViewController as? SimpleSelectViewController)?.cells == cookingTime)
-    }
-    
-    func testDetailsRecipe() {
-        Main().startProgram(.details { [weak self] in $0.recipe = self?.testRecipe })
-        let vc = appDelegate.window?.rootViewController as? DetailsViewController
-        let numberOfStepsRow = vc?.tableView.numberOfRows(inSection: 2) ?? 0
-        let numberOfIngridientsRows = vc?.tableView.numberOfRows(inSection: 1) ?? 0
-        XCTAssert(numberOfStepsRow == testRecipe.steps.count)
-        XCTAssert(numberOfIngridientsRows == testRecipe.ingredients.count)
-    }
-    
-    func testErrorViewAppear() {
-        let vc = UIStoryboard(name: .list).instantiateVC()
-        vc.view.showErrorView("Test Error", action: nil)
-        XCTAssert(vc.view.viewWithTag(ErrorMessageView.viewTag) != nil)
-    }
-    
-    func testErrorViewRemove() {
-        let vc = UIStoryboard(name: .list).instantiateVC()
-        vc.view.showErrorView("Test Error", action: nil)
-        vc.view.removeErrorView()
-        XCTAssert(vc.view.viewWithTag(ErrorMessageView.viewTag) == nil)
     }
 
     func testPerformanceExample() {

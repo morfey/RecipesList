@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class SimpleSelectConfiguration: ConfigurationClass {
+final class SimpleSelectConfiguration {
     var cells: [String]?
     var selectedCell: Int?
     var closureDidSelectCell: ((Int) -> ())?

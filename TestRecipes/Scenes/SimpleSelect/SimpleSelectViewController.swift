@@ -8,22 +8,25 @@
 
 import UIKit
 
-final class SimpleSelectViewController: UIViewController, Configurable {
+final class SimpleSelectViewController: UIViewController {
     @IBOutlet private(set) weak var tableView: UITableView!
     private(set) var selectedCell: Int?
     private(set) var closureDidSelectCell: ((Int) -> ())?
     private(set) var cells = [String]()
     
-    static func makeFromStoryboard(_ configuration: SimpleSelectConfiguration) -> SimpleSelectViewController {
-        let vc = SimpleSelectViewController(nibName: NibName.simpleSelect.rawValue, bundle: nil)
-        vc.cells = configuration.cells ?? []
-        vc.selectedCell = configuration.selectedCell
-        vc.closureDidSelectCell = configuration.closureDidSelectCell
-        return vc
+    init(configuration: SimpleSelectConfiguration) {
+        closureDidSelectCell = configuration.closureDidSelectCell
+        selectedCell = configuration.selectedCell
+        cells = configuration.cells ?? []
+        super.init(nibName: nil, bundle: nil)
     }
     
-    override func loadView() {
-        super.loadView()
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(hide))
     }
 

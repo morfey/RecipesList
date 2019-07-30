@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 
 enum NibName: String {
-    case simpleSelect = "SimpleSelectViewController"
     case recipeCell = "RecipeCollectionViewCell"
     case filterView = "FilterReusableView"
     case emptyView = "EmptyMessageView"

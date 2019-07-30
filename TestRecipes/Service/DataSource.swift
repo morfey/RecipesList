@@ -8,7 +8,7 @@
 
 import Foundation
 
-class DataStore {
+class DataSource {
     private var isSearching = false
     private var original = [Recipe]()
     
