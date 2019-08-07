@@ -24,6 +24,7 @@
 		EE1BC2DB22C25BF100DD8D5F /* RecipeCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE1BC2D922C25BF100DD8D5F /* RecipeCollectionViewCell.xib */; };
 		EE30EF4322F97DC1006CDFB7 /* NetworkServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE30EF4222F97DC1006CDFB7 /* NetworkServiceProtocol.swift */; };
 		EE30EF4522FB0D7A006CDFB7 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE30EF4422FB0D7A006CDFB7 /* NetworkError.swift */; };
+		EE30EF4922FB109C006CDFB7 /* RecipeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE30EF4822FB109C006CDFB7 /* RecipeManager.swift */; };
 		EE733C7722C26FF500C7B624 /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE733C7622C26FF500C7B624 /* Cache.swift */; };
 		EE733C7922C2A4F100C7B624 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE733C7822C2A4F100C7B624 /* DataSource.swift */; };
 		EE733C7B22C2A59900C7B624 /* Array + safe.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE733C7A22C2A59900C7B624 /* Array + safe.swift */; };
@@ -83,6 +84,7 @@
 		EE1BC2D922C25BF100DD8D5F /* RecipeCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecipeCollectionViewCell.xib; sourceTree = "<group>"; };
 		EE30EF4222F97DC1006CDFB7 /* NetworkServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceProtocol.swift; sourceTree = "<group>"; };
 		EE30EF4422FB0D7A006CDFB7 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		EE30EF4822FB109C006CDFB7 /* RecipeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeManager.swift; sourceTree = "<group>"; };
 		EE70BDECD826AA0DED2884E5 /* Pods_TestRecipes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TestRecipes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE733C7622C26FF500C7B624 /* Cache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
 		EE733C7822C2A4F100C7B624 /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 		EE1BC29222C23CF500DD8D5F /* TestRecipes */ = {
 			isa = PBXGroup;
 			children = (
+				EE30EF4722FB1085006CDFB7 /* Managers */,
 				EE1BC2BD22C24FC800DD8D5F /* Scenes */,
 				EE1BC2B622C23F6E00DD8D5F /* Service */,
 				EE1BC2B322C23DCD00DD8D5F /* Model */,
@@ -206,11 +209,7 @@
 		EE1BC2B622C23F6E00DD8D5F /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				EE1BC2B722C23F7D00DD8D5F /* NetworkService.swift */,
-				EE30EF4422FB0D7A006CDFB7 /* NetworkError.swift */,
-				EE30EF4222F97DC1006CDFB7 /* NetworkServiceProtocol.swift */,
-				EE1BC2B922C23FB600DD8D5F /* Router.swift */,
-				EE1BC2BB22C241B000DD8D5F /* RecipesApi.swift */,
+				EE30EF4622FB1037006CDFB7 /* Network */,
 				EE733C7622C26FF500C7B624 /* Cache.swift */,
 				EE733C7822C2A4F100C7B624 /* DataSource.swift */,
 				EE733C8722C37E4000C7B624 /* TableViewCellProtocol.swift */,
@@ -255,6 +254,26 @@
 				EE7383A922C7C42100DF9B7F /* UIView + errorView.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		EE30EF4622FB1037006CDFB7 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				EE1BC2B722C23F7D00DD8D5F /* NetworkService.swift */,
+				EE30EF4422FB0D7A006CDFB7 /* NetworkError.swift */,
+				EE1BC2B922C23FB600DD8D5F /* Router.swift */,
+				EE1BC2BB22C241B000DD8D5F /* RecipesApi.swift */,
+				EE30EF4222F97DC1006CDFB7 /* NetworkServiceProtocol.swift */,
+			);
+			name = Network;
+			sourceTree = "<group>";
+		};
+		EE30EF4722FB1085006CDFB7 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				EE30EF4822FB109C006CDFB7 /* RecipeManager.swift */,
+			);
+			path = Managers;
 			sourceTree = "<group>";
 		};
 		EE733C7C22C2C0CC00C7B624 /* DetailsRecipe */ = {
@@ -482,6 +501,7 @@
 				EECEBC2B22F04A7100ADB792 /* DependencyContainer.swift in Sources */,
 				EE733C9222C3BDDE00C7B624 /* FilterReusableView.swift in Sources */,
 				EE733C7B22C2A59900C7B624 /* Array + safe.swift in Sources */,
+				EE30EF4922FB109C006CDFB7 /* RecipeManager.swift in Sources */,
 				EE1BC2BA22C23FB600DD8D5F /* Router.swift in Sources */,
 				EE73839922C5177000DF9B7F /* UICollectionView + emptyMessage.swift in Sources */,
 				EE733C8D22C37FA800C7B624 /* BasicTableCell.swift in Sources */,

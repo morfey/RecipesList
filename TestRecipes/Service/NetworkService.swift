@@ -56,10 +56,6 @@ struct NetworkService: NetworkServiceProtocol {
         }
     }
     
-    func getRecipesList(completion: @escaping (Result<[Recipe], Error>) -> ()) {
-        request(api: .list, completion: completion)
-    }
-    
     fileprivate func handleNetworkResponse(_ response: HTTPURLResponse) -> Result<Any, Error> {
         switch response.statusCode {
         case 200...299: return .success(response)

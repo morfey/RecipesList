@@ -30,17 +30,17 @@ extension DependencyContainer: ViewControllerFactory {
     }
 }
 
-protocol NetworkServiceFactory {
-    func makeNetworkService() -> NetworkService
+protocol RecipeManagerFactory {
+    func makeRecipeManager() -> RecipeManager
 }
 
 protocol DataSouceFactory {
     func makeDataSource() -> DataSource
 }
 
-extension DependencyContainer: NetworkServiceFactory {
-    func makeNetworkService() -> NetworkService {
-        return NetworkService()
+extension DependencyContainer: RecipeManagerFactory {
+    func makeRecipeManager() -> RecipeManager {
+        return RecipeManager(networkService: NetworkService())
     }
 }
 

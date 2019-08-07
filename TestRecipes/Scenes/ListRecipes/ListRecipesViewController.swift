@@ -9,7 +9,7 @@
 import UIKit
 
 class ListRecipesViewController: UIViewController {
-    typealias Factory = ViewControllerFactory & NetworkServiceFactory & DataSouceFactory
+    typealias Factory = ViewControllerFactory & RecipeManagerFactory & DataSouceFactory
     
     @IBOutlet private weak var recipesCollectionView: UICollectionView!
     fileprivate var collectionViewHeader: FilterReusableView?
@@ -19,7 +19,7 @@ class ListRecipesViewController: UIViewController {
     fileprivate var headerIdentifier = "header"
     
     private(set) var factory: Factory
-    private lazy var networkService = factory.makeNetworkService()
+    private lazy var recipeManager = factory.makeRecipeManager()
     private lazy var dataStore = factory.makeDataSource()
     
     fileprivate var collectionViewNumberOfRows: CGFloat {
@@ -56,7 +56,7 @@ class ListRecipesViewController: UIViewController {
     }
     
     fileprivate func loadData() {
-        networkService.getRecipesList { [weak self] response in
+        recipeManager.getRecipesList { [weak self] response in
             
             mainQueue { [weak self] in
                 self?.view.removeLoader()
