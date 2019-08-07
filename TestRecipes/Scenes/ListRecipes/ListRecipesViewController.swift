@@ -56,22 +56,31 @@ class ListRecipesViewController: UIViewController {
     }
     
     fileprivate func loadData() {
-        networkService.getRecipesList { [weak self] response, error in
-            self?.dataStore.items = response ?? []
+        networkService.getRecipesList { [weak self] response in
             
             mainQueue { [weak self] in
                 self?.view.removeLoader()
                 self?.updateRefreshControl?.endRefreshing()
             }
             
-            if let error = error, self?.dataStore.items.isEmpty == true {
-                mainQueue { [weak self] in
-                    self?.view.showErrorView(error, action: self?.tapClosure)
-                }
-            } else {
+            switch response {
+            case .success(let value):
+                self?.dataStore.items = value
                 mainQueue { [weak self] in
                     self?.view.removeErrorView()
                     self?.recipesCollectionView.reloadData()
+                }
+            case .failure(let error):
+                self?.dataStore.items = []
+                if self?.dataStore.items.isEmpty == true {
+                    mainQueue { [weak self] in
+                        self?.view.showErrorView(error.localizedDescription, action: self?.tapClosure)
+                    }
+                } else {
+                    mainQueue { [weak self] in
+                        self?.view.removeErrorView()
+                        self?.recipesCollectionView.reloadData()
+                    }
                 }
             }
         }

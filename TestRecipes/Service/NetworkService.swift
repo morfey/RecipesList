@@ -24,29 +24,15 @@ public enum HTTPTask {
     case request
 }
 
-enum NetworkResponse: String {
-    case success
-    case authenticationError = "Authentication error"
-    case badRequest = "Bad request"
-    case failed = "Request failed"
-    case emptyData = "Empty response"
-    case decodeFailure = "Decode failure"
-}
-
-enum Result<String>{
-    case success
-    case failure(String)
-}
-
 public typealias HTTPHeaders = [String: String]
 
-struct NetworkService {
+struct NetworkService: NetworkServiceProtocol {
     let router = Router<RecipesApi>()
     
-    func getRecipesList(completion: @escaping (_ items: [Recipe]?,_ error: String?) -> ()) {
-        router.request(.list) { data, response, error in
-            if error != nil {
-                completion(nil, error?.localizedDescription)
+    func request<T: Codable>(api: RecipesApi, completion: @escaping (Result<[T], Error>) -> ()) {
+        router.request(api) { data, response, error in
+            if let error = error {
+                completion(.failure(error))
             }
             
             if let response = response as? HTTPURLResponse {
@@ -54,28 +40,32 @@ struct NetworkService {
                 switch result {
                 case .success:
                     guard let responseData = data else {
-                        completion(nil, NetworkResponse.emptyData.rawValue)
+                        completion(.failure(NetworkError.emptyData))
                         return
                     }
                     do {
-                        let apiResponse = try JSONDecoder().decode([Recipe].self, from: responseData)
-                        completion(apiResponse, nil)
+                        let apiResponse = try JSONDecoder().decode([T].self, from: responseData)
+                        completion(.success(apiResponse))
                     } catch {
-                        completion(nil, NetworkResponse.decodeFailure.rawValue)
+                        completion(.failure(NetworkError.decodeFailure))
                     }
                 case .failure(let networkFailureError):
-                    completion(nil, networkFailureError)
+                    completion(.failure(networkFailureError))
                 }
             }
         }
     }
     
-    fileprivate func handleNetworkResponse(_ response: HTTPURLResponse) -> Result<String> {
+    func getRecipesList(completion: @escaping (Result<[Recipe], Error>) -> ()) {
+        request(api: .list, completion: completion)
+    }
+    
+    fileprivate func handleNetworkResponse(_ response: HTTPURLResponse) -> Result<Any, Error> {
         switch response.statusCode {
-        case 200...299: return .success
-        case 401...500: return .failure(NetworkResponse.authenticationError.rawValue)
-        case 501...599: return .failure(NetworkResponse.badRequest.rawValue)
-        default: return .failure(NetworkResponse.failed.rawValue)
+        case 200...299: return .success(response)
+        case 401...500: return .failure(NetworkError.authenticationError)
+        case 501...599: return .failure(NetworkError.badRequest)
+        default: return .failure(NetworkError.failed)
         }
     }
 }
