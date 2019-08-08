@@ -57,6 +57,7 @@ class ListRecipesViewController: UIViewController {
     
     fileprivate func loadData() {
         recipeManager.getRecipesList { [weak self] response in
+            guard let `self` = self else { return }
             
             mainQueue { [weak self] in
                 self?.view.removeLoader()
@@ -65,23 +66,26 @@ class ListRecipesViewController: UIViewController {
             
             switch response {
             case .success(let value):
-                self?.dataStore.items = value
+                self.dataStore.items = value
                 mainQueue { [weak self] in
                     self?.view.removeErrorView()
                     self?.recipesCollectionView.reloadData()
                 }
             case .failure(let error):
-                self?.dataStore.items = []
-                if self?.dataStore.items.isEmpty == true {
-                    mainQueue { [weak self] in
-                        self?.view.showErrorView(error.localizedDescription, action: self?.tapClosure)
-                    }
-                } else {
-                    mainQueue { [weak self] in
-                        self?.view.removeErrorView()
-                        self?.recipesCollectionView.reloadData()
-                    }
-                }
+                self.handle(error)
+            }
+        }
+    }
+    
+    fileprivate func handle(_ error: Error) {
+        dataStore.items = []
+        
+        mainQueue { [weak self] in
+            if self?.dataStore.items.isEmpty == true {
+                self?.view.showErrorView(error.localizedDescription, action: self?.tapClosure)
+            } else {
+                self?.view.removeErrorView()
+                self?.recipesCollectionView.reloadData()
             }
         }
     }
@@ -157,13 +161,10 @@ extension ListRecipesViewController: FilterViewDelegate {
             self?.recipesCollectionView.reloadData()
         }
         
-        let conf = SimpleSelectConfiguration()
-        conf.cells = complexity.map { $0.rawValue.capitalized }
-        conf.closureDidSelectCell = complexityClosure
-        conf.selectedCell = complexity.firstIndex(of: dataStore.complexityFilter)
-        let vc = factory.makeSimpleSelectViewController(configuration: conf)
-        let nav = UINavigationController(rootViewController: vc)
-        present(nav, animated: true, completion: nil)
+        let selecteddIndex = complexity.firstIndex(of: dataStore.complexityFilter)
+        let vc = factory.makeComplexityFilterViewController(selectClosure: complexityClosure,
+                                                            selectedIndex: selecteddIndex)
+        present(vc, animated: true, completion: nil)
     }
     
     func showCookingTimeFilter() {
@@ -175,34 +176,19 @@ extension ListRecipesViewController: FilterViewDelegate {
             self?.recipesCollectionView.reloadData()
         }
         
-        let conf = SimpleSelectConfiguration()
-        conf.cells = cookingTime.map { $0.title }
-        conf.closureDidSelectCell = cookingClosure
-        conf.selectedCell = cookingTime.firstIndex(of: dataStore.cookingTime)
-        let vc = factory.makeSimpleSelectViewController(configuration: conf)
-        let nav = UINavigationController(rootViewController: vc)
-        present(nav, animated: true, completion: nil)
+        let selectedIndex = cookingTime.firstIndex(of: dataStore.cookingTime)
+        let vc = factory.makeCookingTimeFilterViewController(selectClosure: cookingClosure,
+                                                             selectedIndex: selectedIndex)
+        present(vc, animated: true, completion: nil)
     }
     
     fileprivate func setComplexityBtnTiile() {
-        var str = ""
-        switch dataStore.complexityFilter {
-        case .any:
-            str = "Complexity"
-        default:
-            str = dataStore.complexityFilter.rawValue.capitalized
-        }
+        let str = dataStore.complexityFilter == .any ? "Complexity" : dataStore.complexityFilter.rawValue.capitalized
         collectionViewHeader?.complexityBtn?.setTitle(str + " ▼", for: .normal)
     }
     
     fileprivate func setCookingTimeBtnTitle() {
-        var str = ""
-        switch dataStore.cookingTime {
-        case .any:
-            str = "Cooking Time"
-        default:
-            str = dataStore.cookingTime.title
-        }
+        let str = dataStore.cookingTime == .any ? "Cooking Time" : dataStore.cookingTime.title
         collectionViewHeader?.cookingTimeBtn?.setTitle(str + " ▼", for: .normal)
     }
 }
