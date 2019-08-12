@@ -48,6 +48,7 @@
 		EECEBC2B22F04A7100ADB792 /* DependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EECEBC2A22F04A7100ADB792 /* DependencyContainer.swift */; };
 		EECEBC2D22F04CA400ADB792 /* ListRecipesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EECEBC2C22F04CA400ADB792 /* ListRecipesViewController.xib */; };
 		EECEBC2F22F055BD00ADB792 /* DetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EECEBC2E22F055BD00ADB792 /* DetailsViewController.xib */; };
+		EEDFE01E2301767D007637D3 /* RecipeManagersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDFE01D2301767D007637D3 /* RecipeManagersTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,6 +110,7 @@
 		EECEBC2A22F04A7100ADB792 /* DependencyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyContainer.swift; sourceTree = "<group>"; };
 		EECEBC2C22F04CA400ADB792 /* ListRecipesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListRecipesViewController.xib; sourceTree = "<group>"; };
 		EECEBC2E22F055BD00ADB792 /* DetailsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailsViewController.xib; sourceTree = "<group>"; };
+		EEDFE01D2301767D007637D3 /* RecipeManagersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeManagersTests.swift; sourceTree = "<group>"; };
 		F840D6DA35075EB1BA98224B /* Pods-TestRecipes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestRecipes.release.xcconfig"; path = "Target Support Files/Pods-TestRecipes/Pods-TestRecipes.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -193,6 +195,7 @@
 			isa = PBXGroup;
 			children = (
 				EE1BC2A822C23CF800DD8D5F /* TestRecipesTests.swift */,
+				EEDFE01D2301767D007637D3 /* RecipeManagersTests.swift */,
 				EE1BC2AA22C23CF800DD8D5F /* Info.plist */,
 			);
 			path = TestRecipesTests;
@@ -518,6 +521,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EE1BC2A922C23CF800DD8D5F /* TestRecipesTests.swift in Sources */,
+				EEDFE01E2301767D007637D3 /* RecipeManagersTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
