@@ -12,11 +12,11 @@ final class DetailsViewController: UIViewController {
     @IBOutlet private(set) weak var tableView: UITableView!
     @IBOutlet private weak var imageViewHeightConst: NSLayoutConstraint!
     @IBOutlet private weak var imageView: UIImageView!
+    private(set) var sections: [SectionType] = []
+    private(set) var recipe: Recipe?
     fileprivate var headerHeight: CGFloat {
         return view.frame.width * (UIApplication.shared.statusBarOrientation.isPortrait ? 0.5 : 0.3)
     }
-    private(set) var sections: [SectionType] = []
-    private(set) var recipe: Recipe?
     
     init(recipe: Recipe) {
         self.recipe = recipe
@@ -31,7 +31,6 @@ final class DetailsViewController: UIViewController {
         super.viewDidLoad()
         reloadSections()
         imageViewHeightConst.constant = headerHeight
-        tableView.contentInset = UIEdgeInsets(top: headerHeight, left: 0, bottom: 0, right: 0)
         imageView.kf.setImage(with: URL(string: recipe?.imageURL ?? ""), placeholder: #imageLiteral(resourceName: "placeholder"))
     }
     
@@ -51,7 +50,9 @@ final class DetailsViewController: UIViewController {
         }
         
         self.sections = sections
-        self.tableView.reloadData()
+        
+        tableView.contentInset = UIEdgeInsets(top: headerHeight, left: 0, bottom: 0, right: 0)
+        tableView.reloadData()
     }
     
     fileprivate func makeTitleSection()  -> SectionType? {
@@ -111,11 +112,10 @@ extension DetailsViewController: UITableViewDelegate, UITableViewDataSource {
         let factory = TableViewCellHelper.factory(for: type)
         let cell: UITableViewCell?
         
-        if let cel = tableView.dequeueReusableCell(withIdentifier: factory.cell().name()) as? TableViewCellProtocol {
-            cell = cel as? UITableViewCell
+        if let reusableCell = tableView.dequeueReusableCell(withIdentifier: factory.cell().name()) {
+            cell = reusableCell
         } else {
-            let cell_: TableViewCellProtocol = factory.cell()
-            cell = cell_ as? UITableViewCell
+            cell = factory.cell() as? UITableViewCell
         }
         (cell as? TableViewCellProtocol)?.configureCell(vm: factory.vm)
         return cell ?? UITableViewCell()
