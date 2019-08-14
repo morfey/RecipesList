@@ -74,7 +74,7 @@ final class DetailsViewController: UIViewController {
                                                 numberOfLines: 0)
                 cells.append(.detailsCell(vm))
             }
-            return .ingridients("Ingridients \(ingridientsCount)", cells)
+            return .ingridients(Strings.ingridients.rawValue + " \(ingridientsCount)", cells)
         }
         return nil
     }
@@ -126,7 +126,7 @@ extension DetailsViewController: UITableViewDelegate, UITableViewDataSource {
         case .ingridients(let str, _):
             return str
         case .instructions(_):
-            return "Instructions"
+            return Strings.instructions.rawValue
         default: return nil
         }
     }

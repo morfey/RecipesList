@@ -98,7 +98,7 @@ class ListRecipesViewController: UIViewController {
 extension ListRecipesViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if recipeManager.items.isEmpty {
-            collectionView.setEmptyMessage("No Results")
+            collectionView.setEmptyMessage(Strings.noResults.rawValue)
         } else {
             collectionView.restore()
         }
@@ -186,13 +186,13 @@ extension ListRecipesViewController: FilterViewDelegate {
     }
     
     fileprivate func setComplexityBtnTiile() {
-        let str = recipeManager.complexityFilter == .any ? "Complexity" : recipeManager.complexityFilter.rawValue.capitalized
-        collectionViewHeader?.complexityBtn?.setTitle(str + " ▼", for: .normal)
+        let str = recipeManager.complexityFilter == .any ? Strings.complexity.rawValue : recipeManager.complexityFilter.rawValue.capitalized
+        collectionViewHeader?.complexityBtn?.setTitle(str + " " + Strings.downArraw.rawValue, for: .normal)
     }
     
     fileprivate func setCookingTimeBtnTitle() {
-        let str = recipeManager.cookingTime == .any ? "Cooking Time" : recipeManager.cookingTime.title
-        collectionViewHeader?.cookingTimeBtn?.setTitle(str + " ▼", for: .normal)
+        let str = recipeManager.cookingTime == .any ? Strings.cookingTime.rawValue : recipeManager.cookingTime.title
+        collectionViewHeader?.cookingTimeBtn?.setTitle(str + " " + Strings.downArraw.rawValue, for: .normal)
     }
 }
 

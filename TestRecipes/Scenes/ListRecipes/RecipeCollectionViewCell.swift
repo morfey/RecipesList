@@ -22,7 +22,7 @@ class RecipeCollectionViewCell: UICollectionViewCell {
     func configureCell(item: Recipe) {
         imageView.kf.setImage(with: URL(string: item.imageURL ?? ""), placeholder: #imageLiteral(resourceName: "placeholder"))
         nameLabel.text = item.name
-        ingridientsCountLabel.text = "\(item.ingredients.count) ingridients"
-        minutesCountLabel.text = "\(item.timers.reduce(0, +)) minutes"
+        ingridientsCountLabel.text = "\(item.ingredients.count) " + Strings.ingridients.rawValue.lowercased()
+        minutesCountLabel.text = "\(item.timers.reduce(0, +)) " + Strings.minutes.rawValue.lowercased()
     }
 }
