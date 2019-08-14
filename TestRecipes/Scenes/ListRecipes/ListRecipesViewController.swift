@@ -9,7 +9,7 @@
 import UIKit
 
 class ListRecipesViewController: UIViewController {
-    typealias Factory = ViewControllerFactory & RecipeManagerFactory & DataSouceFactory
+    typealias Factory = ViewControllerFactory & RecipeManagerFactory
     
     @IBOutlet private weak var recipesCollectionView: UICollectionView!
     fileprivate var collectionViewHeader: FilterReusableView?
@@ -20,7 +20,6 @@ class ListRecipesViewController: UIViewController {
     
     private(set) var factory: Factory
     private lazy var recipeManager = factory.makeRecipeManager()
-    private lazy var dataStore = factory.makeDataSource()
     
     fileprivate var collectionViewNumberOfRows: CGFloat {
         return UIApplication.shared.statusBarOrientation.isPortrait ? 2 : 3
@@ -66,26 +65,26 @@ class ListRecipesViewController: UIViewController {
             
             switch response {
             case .success(let value):
-                self.dataStore.items = value
+                self.recipeManager.items = value
                 mainQueue { [weak self] in
                     self?.view.removeErrorView()
                     self?.recipesCollectionView.reloadData()
                 }
             case .failure(let error):
+                self.recipeManager.items = []
                 self.handle(error)
             }
         }
     }
     
     fileprivate func handle(_ error: Error) {
-        dataStore.items = []
-        
         mainQueue { [weak self] in
-            if self?.dataStore.items.isEmpty == true {
-                self?.view.showErrorView(error.localizedDescription, action: self?.tapClosure)
+            guard let `self` = self else { return }
+            if self.recipeManager.items.isEmpty == true {
+                self.view.showErrorView(error.localizedDescription, action: self.tapClosure)
             } else {
-                self?.view.removeErrorView()
-                self?.recipesCollectionView.reloadData()
+                self.view.removeErrorView()
+                self.recipesCollectionView.reloadData()
             }
         }
     }
@@ -98,18 +97,18 @@ class ListRecipesViewController: UIViewController {
 // MARK: - UICollectionViewDelegate & UICollectionViewDataSource
 extension ListRecipesViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if dataStore.items.isEmpty {
+        if recipeManager.items.isEmpty {
             collectionView.setEmptyMessage("No Results")
         } else {
             collectionView.restore()
         }
-        return dataStore.items.count
+        return recipeManager.items.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier,
                                                             for: indexPath) as? RecipeCollectionViewCell,
-            let item = dataStore.items[safe: indexPath.item]
+            let item = recipeManager.items[safe: indexPath.item]
         else {
             return UICollectionViewCell()
         }
@@ -119,7 +118,7 @@ extension ListRecipesViewController: UICollectionViewDelegate, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let item = dataStore.items[safe: indexPath.item] {
+        if let item = recipeManager.items[safe: indexPath.item] {
             let vc = factory.makeDetailsRecipeViewController(recipe: item)
             navigationController?.pushViewController(vc, animated: true)
         }
@@ -155,13 +154,14 @@ extension ListRecipesViewController: FilterViewDelegate {
     func showComplexityFilter() {
         let complexity = Complexity.allCases
         let complexityClosure: ((Int) -> ())? = { [weak self] index in
-            self?.dataStore.complexityFilter = complexity[index]
-            self?.dataStore.filter(with: self?.searchController?.searchBar.text)
-            self?.setComplexityBtnTiile()
-            self?.recipesCollectionView.reloadData()
+            guard let `self` = self else { return }
+            self.recipeManager.complexityFilter = complexity[index]
+            self.recipeManager.filter(with: self.searchController?.searchBar.text)
+            self.setComplexityBtnTiile()
+            self.recipesCollectionView.reloadData()
         }
         
-        let selecteddIndex = complexity.firstIndex(of: dataStore.complexityFilter)
+        let selecteddIndex = complexity.firstIndex(of: recipeManager.complexityFilter)
         let vc = factory.makeComplexityFilterViewController(selectClosure: complexityClosure,
                                                             selectedIndex: selecteddIndex)
         present(vc, animated: true, completion: nil)
@@ -170,25 +170,26 @@ extension ListRecipesViewController: FilterViewDelegate {
     func showCookingTimeFilter() {
         let cookingTime = CookingTime.allCases
         let cookingClosure: ((Int) -> ())? = { [weak self] index in
-            self?.dataStore.cookingTime = cookingTime[index]
-            self?.dataStore.filter(with: self?.searchController?.searchBar.text)
-            self?.setCookingTimeBtnTitle()
-            self?.recipesCollectionView.reloadData()
+            guard let `self` = self else { return }
+            self.recipeManager.cookingTime = cookingTime[index]
+            self.recipeManager.filter(with: self.searchController?.searchBar.text)
+            self.setCookingTimeBtnTitle()
+            self.recipesCollectionView.reloadData()
         }
         
-        let selectedIndex = cookingTime.firstIndex(of: dataStore.cookingTime)
+        let selectedIndex = cookingTime.firstIndex(of: recipeManager.cookingTime)
         let vc = factory.makeCookingTimeFilterViewController(selectClosure: cookingClosure,
                                                              selectedIndex: selectedIndex)
         present(vc, animated: true, completion: nil)
     }
     
     fileprivate func setComplexityBtnTiile() {
-        let str = dataStore.complexityFilter == .any ? "Complexity" : dataStore.complexityFilter.rawValue.capitalized
+        let str = recipeManager.complexityFilter == .any ? "Complexity" : recipeManager.complexityFilter.rawValue.capitalized
         collectionViewHeader?.complexityBtn?.setTitle(str + " ▼", for: .normal)
     }
     
     fileprivate func setCookingTimeBtnTitle() {
-        let str = dataStore.cookingTime == .any ? "Cooking Time" : dataStore.cookingTime.title
+        let str = recipeManager.cookingTime == .any ? "Cooking Time" : recipeManager.cookingTime.title
         collectionViewHeader?.cookingTimeBtn?.setTitle(str + " ▼", for: .normal)
     }
 }
@@ -196,12 +197,12 @@ extension ListRecipesViewController: FilterViewDelegate {
 // MARK: - UISearchControllerDelegate & UISearchResultsUpdating
 extension ListRecipesViewController: UISearchControllerDelegate, UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        dataStore.filter(with: searchController.searchBar.text)
+        recipeManager.filter(with: searchController.searchBar.text)
         recipesCollectionView.reloadData()
     }
     
     func didDismissSearchController(_ searchController: UISearchController) {
-        dataStore.filter(with: nil)
+        recipeManager.filter(with: nil)
         recipesCollectionView.reloadData()
     }
 }

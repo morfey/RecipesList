@@ -58,18 +58,8 @@ protocol RecipeManagerFactory {
     func makeRecipeManager() -> RecipeManager
 }
 
-protocol DataSouceFactory {
-    func makeDataSource() -> DataSource
-}
-
 extension DependencyContainer: RecipeManagerFactory {
     func makeRecipeManager() -> RecipeManager {
-        return RecipeManager(networkService: NetworkService())
-    }
-}
-
-extension DependencyContainer: DataSouceFactory {
-    func makeDataSource() -> DataSource {
-        return DataSource()
+        return RecipeManager(networkService: NetworkService(), dataSource: DataSource())
     }
 }
