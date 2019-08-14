@@ -36,7 +36,7 @@ class RecipeManagersTests: XCTestCase {
     override func setUp() {
         super.setUp()
         networkService = NetworkServiceMock()
-        recipeManager = RecipeManager(networkService: networkService)
+        recipeManager = RecipeManager(networkService: networkService, dataSource: DataSource())
     }
     
     override func tearDown() {
