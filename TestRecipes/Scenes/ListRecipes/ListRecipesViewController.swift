@@ -162,8 +162,9 @@ extension ListRecipesViewController: FilterViewDelegate {
         }
         
         let selecteddIndex = complexity.firstIndex(of: recipeManager.complexityFilter)
-        let vc = factory.makeComplexityFilterViewController(selectClosure: complexityClosure,
-                                                            selectedIndex: selecteddIndex)
+        let vc = factory.makeSimpleSecetionViewController(cells: complexity.map { $0.rawValue.capitalized },
+                                                          selectClosure: complexityClosure,
+                                                          selectedIndex: selecteddIndex)
         present(vc, animated: true, completion: nil)
     }
     
@@ -178,8 +179,9 @@ extension ListRecipesViewController: FilterViewDelegate {
         }
         
         let selectedIndex = cookingTime.firstIndex(of: recipeManager.cookingTime)
-        let vc = factory.makeCookingTimeFilterViewController(selectClosure: cookingClosure,
-                                                             selectedIndex: selectedIndex)
+        let vc = factory.makeSimpleSecetionViewController(cells: cookingTime.map { $0.title },
+                                                          selectClosure: cookingClosure,
+                                                          selectedIndex: selectedIndex)
         present(vc, animated: true, completion: nil)
     }
     

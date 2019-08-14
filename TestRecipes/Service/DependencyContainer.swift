@@ -14,8 +14,7 @@ class DependencyContainer { }
 protocol ViewControllerFactory {
     func makeListRecipesViewController() -> ListRecipesViewController
     func makeDetailsRecipeViewController(recipe: Recipe) -> DetailsViewController
-    func makeCookingTimeFilterViewController(selectClosure: ((Int) -> ())?, selectedIndex: Int?) -> UIViewController
-    func makeComplexityFilterViewController(selectClosure: ((Int) -> ())?, selectedIndex: Int?) -> UIViewController
+    func makeSimpleSecetionViewController(cells: [String], selectClosure: ((Int) -> ())?, selectedIndex: Int?) -> UIViewController
 }
 
 extension DependencyContainer: ViewControllerFactory {
@@ -27,26 +26,14 @@ extension DependencyContainer: ViewControllerFactory {
         return DetailsViewController(recipe: recipe)
     }
     
-    func makeCookingTimeFilterViewController(selectClosure: ((Int) -> ())?, selectedIndex: Int?) -> UIViewController {
-        let cookingTime = CookingTime.allCases
+    func makeSimpleSecetionViewController(cells: [String], selectClosure: ((Int) -> ())?, selectedIndex: Int?) -> UIViewController {
         let configuration = SimpleSelectConfiguration()
-        configuration.cells = cookingTime.map { $0.title }
+        configuration.cells = cells
         configuration.closureDidSelectCell = selectClosure
         configuration.selectedCell = selectedIndex
         let vc = makeSimpleSelectViewController(configuration: configuration)
-        let nav = UINavigationController(rootViewController: vc)
-        return nav
-    }
-    
-    func makeComplexityFilterViewController(selectClosure: ((Int) -> ())?, selectedIndex: Int?) -> UIViewController {
-        let complexity = Complexity.allCases
-        let configuration = SimpleSelectConfiguration()
-        configuration.cells = complexity.map { $0.rawValue.capitalized }
-        configuration.closureDidSelectCell = selectClosure
-        configuration.selectedCell = selectedIndex
-        let vc = makeSimpleSelectViewController(configuration: configuration)
-        let nav = UINavigationController(rootViewController: vc)
-        return nav
+        let navigationController = UINavigationController(rootViewController: vc)
+        return navigationController
     }
     
     func makeSimpleSelectViewController(configuration: SimpleSelectConfiguration) -> SimpleSelectViewController {
